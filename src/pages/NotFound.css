@@ -1,0 +1,13 @@
+.notfound-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.notFound-image{
+    width: 42%;
+}
+@media only screen and(max-width:768px) {
+       .notFound-image{
+        width: 30%;
+    }
+}

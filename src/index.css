@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+  font-family: "Varela round" !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  font-family: "Varela round" !important;
+}

@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+.psychological_Facts {
+  background-color: #fcf4e7;
+  padding: 20px;
+}
+
+.psychological_Facts h1 {
+  color: #554a45;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  text-decoration: underline;
+  -webkit-text-decoration-color: #f7642e;
+  text-decoration-color: #f7642e;
+  text-underline-offset: 8px;
+  padding-bottom: 10px;
+}
+.psycholodical_first {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.psycholodical_first iframe {
+  border-radius: 2%;
+}
+.psycholodical_all {
+  padding-top: 40px;
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  row-gap: 10px;
+  width: 75%
+}
+.psycholodical_whole{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.psycholodical_all iframe {
+  border-radius: 15px;
+}
+.psycholodical_pagination {
+  margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .psychological_Facts h1 {
+    font-size: 18px;
+    text-underline-offset: 5px;
+  }
+  .psycholodical_first iframe {
+    width: 380px;
+    height: 200px;
+  }
+
+  .psycholodical_all iframe {
+    width: 250px;
+    height: 250px;
+  }
+  .psycholodical_all {
+    margin-bottom: 30px;
+  }
+}
+@media only screen and (max-width: 870px) {
+  .psychological_Facts h1 {
+    font-size: 18px;
+    text-underline-offset: 5px;
+  }
+  .psycholodical_first iframe {
+    width: 380px;
+    height: 200px;
+  }
+
+  .psycholodical_all iframe {
+    width: 355px;
+    height: 200px;
+  }
+  .psycholodical_all {
+    margin-bottom: 5px;
+  }
+  .psycholodical_pagination {
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .psycholodical_first iframe {
+    width: 90%;
+  }
+  .psycholodical_all iframe {
+    width: 100%;
+  }
+}

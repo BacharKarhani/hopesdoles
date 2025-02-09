@@ -1,0 +1,36 @@
+.about_page{
+    margin-left: 220px;
+    padding: 20px 0px 0px 10px;
+}
+.card {
+    display: flex;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    text-align: center;
+    margin-bottom: 20px;
+    gap:30px
+  }
+.about_images{
+    width: 100%;
+}  
+.about_paragraphs{
+    display: flex;
+    flex-direction: column;
+    line-height: 2rem;
+    gap: 20px;
+}
+.about_paragraphs p:first-child{
+    margin-top: 20px;
+}
+.add_about_btn{
+    margin: 10px 0px 0px 230px;
+    border: none;
+    background-color: #2cabff;
+    padding: 10px 25px;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}

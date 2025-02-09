@@ -1,0 +1,34 @@
+.create-container {
+  margin-left: 250px;
+  height: 250px;
+}
+
+.create-container > form {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.create-container > form > input {
+  width: 75%;
+  outline: none;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid black;
+}
+
+.create-container > form > button {
+  width: 75%;
+  padding: 5px;
+  border-radius: 8px;
+  border: none;
+  transition: .5s ease-out;
+}
+
+.create-container > form > button:hover {
+    background: #cccccc;
+    cursor: pointer;    
+}

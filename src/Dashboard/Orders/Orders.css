@@ -1,0 +1,50 @@
+.orders_table{
+    margin-left: 230px;
+    padding-top: 10px;
+}
+.order-styled-table{
+    border-collapse: collapse;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 90%;
+}
+.order-styled-table thead tr{
+    background-color: black;
+    color:#fff;
+    text-align: left;
+}
+.order-styled-table th,
+.order-styled-table td{
+    padding: 12px 15px;
+}
+.order-styled-table tbody tr{
+    border-bottom: 1px solid #000;
+}
+.order-styled-table tbody tr:nth-of-type(even){
+    background-color: #f3f3f3;
+}
+.order-styled-table tbody tr:last-of-type{
+    border-bottom: 2px solid #000;
+}
+
+.view-order{
+    background-color: #246c88;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.order-btn-delete{
+    background-color: #882424;
+    color: #fff;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}

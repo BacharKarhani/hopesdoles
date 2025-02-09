@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+.dolls {
+  display: flex;
+  padding: 10px 30px;
+  background-color: #fcf4e7;
+}
+
+.categories {
+  flex: 0 0 25%;
+  max-width: 25%;
+  position: relative;
+}
+.dools-items {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 75%;
+}
+.filter {
+  align-self: flex-end;
+}
+
+.filter > div {
+  display: flex;
+  align-items: center;
+}
+
+.AllCategories input[type="text"] {
+  padding: 1px;
+  font-size: 10px;
+  border: 1px solid #ebeaea;
+  float: left;
+  background: #ffffff;
+  width: 160px;
+  padding-right: 59px;
+  padding-top: 5px;
+  margin-top: 15px;
+}
+
+.AllCategories h1 {
+  color: #554a45;
+  border-bottom: 3px solid#f7642e;
+  max-width: 100px;
+  font-family: "Poppins", sans-serif;
+}
+.AllCategories h2 {
+  color: #716761;
+  margin-top: 10px;
+}
+
+.collection {
+  width: 190px;
+  height: 140px;
+  overflow: auto;
+  padding-top: 15px;
+}
+.Collection_form {
+  margin-top: 15%;
+}
+
+.collection-form {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.collection-form input {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.collection-form label {
+  position: relative;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.collection-form label:before {
+  content: "";
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 1px solid #e2dfda;
+  box-shadow: 0 1px 2px #262626, inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+  border-radius: 20%;
+  padding: 10px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.collection-form input:checked + label:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 9px;
+  width: 4px;
+  height: 10px;
+  border: solid #716761;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.filter
+  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 6.5px 14px;
+}
+.filter_By
+  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  padding-right: 133px;
+}
+
+@media (max-width: 700px) {
+  .dolls {
+    display: flex;
+    flex: 1 1 0px;
+    padding: 1.5rem;
+    min-width: 250px;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  .AllCategories h1 {
+    max-width: 120px;
+  }
+  .collection {
+    width: 182px;
+    height: 149px;
+  }
+  .Collection_form {
+    margin-top: 15%;
+  }
+  .collection-form {
+    margin-top: 15px;
+  }
+  .collection-form label {
+    font-size: 13px;
+  }
+  .AllCategories input[type="text"] {
+    width: 103px;
+    padding-right: 59px;
+    padding-top: 5px;
+  }
+  .filter_By
+    .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding-right: 74px;
+  }
+}
+
+@media (max-width: 800) {
+  .dolls {
+    display: flex;
+    flex: 1 1 0px;
+    padding: 1.5rem;
+    min-width: 250px;
+    max-width: 150%;
+    flex-direction: column;
+    align-items: left;
+  }
+  .collection {
+    width: 192px;
+    height: 139px;
+  }
+  .AllCategories input[type="text"] {
+    width: 180px;
+    padding-right: 100px;
+    padding-top: 8px;
+    margin-bottom: 10px;
+  }
+}
+@media (max-width: 690px) {
+  .dolls {
+    align-items: initial;
+  }
+  .filter > div {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+  }
+  .filter_By
+    .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding-right: 74px;
+  }
+  .AllCategories input[type="text"] {
+    width: 180px;
+    margin-bottom: 10px;
+  }
+  .item {
+    max-width: 50%;
+  }
+}

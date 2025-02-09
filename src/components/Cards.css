@@ -1,0 +1,64 @@
+.cards img {
+  height: 230px;
+  width: 250px;
+  border-radius: 10px;
+}
+.cards img:hover {
+  opacity: 0.3;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  position: relative;
+}
+.cards label {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.AddToCart button {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: transparent;
+  color: transparent;
+  font-size: 14px;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 30px;
+  font-weight: bold;
+}
+.cards:hover .AddToCart button {
+  background-color: #fbb040;
+  color: #fff;
+}
+.cards:hover img {
+  opacity: 0.3;
+}
+.cards:hover .AddToCart {
+  opacity: 1;
+}
+
+@media (max-width: 500px) {
+  .cards img {
+    height: 175px;
+    width: 175px;
+    border-radius: 10px;
+  }
+  .cards {
+    display: flex;
+    justify-content: space-between;
+    flex: 1 1 0px;
+    padding: 1rem;
+    /* min-width: 250px;
+    max-width: 100%; */
+    flex-direction: column;
+    align-items: center;
+  }
+}

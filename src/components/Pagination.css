@@ -1,0 +1,9 @@
+.Pagination .css-wjh20t-MuiPagination-ul {
+    justify-content: end;
+  }
+  @media (max-width: 400px) {
+    .Pagination .css-wjh20t-MuiPagination-ul {
+      justify-content: left;
+      font-size: 3px;
+    }
+}

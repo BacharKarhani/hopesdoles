@@ -1,0 +1,62 @@
+.AddProduct input[type="text"],
+.AddProduct select,
+.AddProduct textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid black;
+  border-radius: 4px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.AddProduct label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+.ProductEditImage img {
+  width: 300px;
+  height: 200px;
+  margin: 5px;
+}
+.ProductEditImageAll {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+  justify-content: flex-start;
+}
+
+.AddProductcontainer {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.labelProduct {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.divProduct {
+  float: left;
+  width: 65%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.addProductrow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.uploadButton {
+  margin-bottom: 30px;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .labelProduct,
+  .divProduct,
+  .addProductrow input[type="submit"] {
+    margin-top: 0;
+  }
+}

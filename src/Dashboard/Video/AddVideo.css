@@ -1,0 +1,20 @@
+.video_data {
+  margin-left: 220px;
+}
+.dashboard_video_form {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.dashboard_video_form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+.select_video {
+  margin-bottom: 10px;
+  padding: 5px;
+  font-size: 17px;
+}

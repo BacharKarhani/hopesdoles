@@ -1,0 +1,9 @@
+.collection_data{
+    margin-left: 220px;
+}
+.dashboard_collection_form{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}

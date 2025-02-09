@@ -1,0 +1,330 @@
+ul {
+  list-style: none;
+}
+.whatsapp-header-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+}
+.links {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+.top-header {
+  display: flex;
+  background-color: #fffaf5;
+  color: white;
+  font-size: 17px;
+  max-width: 100%;
+  justify-content: space-between;
+}
+.ShoppingCartIcon-responsive {
+  display: none;
+  margin: 0 10px; /* Adjust value as needed */
+}
+
+.start-p {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 100px;
+  white-space: nowrap;
+}
+
+@media screen and (min-width: 769px) {
+  .end-p {
+    display: flex;
+    padding: 10px 100px;
+    gap: 6px;
+  }
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  gap: 5px;
+}
+.account {
+  display: flex;
+  align-items: center;
+  color: #faaf3e;
+}
+.account-arrow {
+  display: flex;
+  align-items: center;
+  color: #faaf3e;
+}
+.links-hoops {
+  display: flex;
+}
+
+.logo-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 5%;
+}
+.ShoppingCartIcon {
+  position: absolute;
+  top: 25px;
+  right: 105px;
+}
+.logo_hopes {
+  text-align: center;
+}
+.logo-img img {
+  width: 12%;
+  height: 12%;
+}
+
+.menu ul {
+  background-color: #fef9f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  white-space: nowrap;
+  margin-bottom: 10%;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 15px;
+}
+
+.menu .links:hover {
+  color: #e97436;
+}
+
+.menu ul li {
+  margin: 0px 25px;
+  position: relative;
+}
+.menu ul li:hover::after {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  left: 0;
+  background: #e97436;
+  top: 30px;
+}
+
+.dropdown {
+  display: none;
+}
+.dropdown-content {
+  position: absolute;
+  left: 0;
+  background-color: #faaf3e;
+  min-width: 190px;
+  box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+  z-index: 1;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.dropdown-content a {
+  color: #fff;
+  padding: 12px 20px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* .dropdown:hover .dropdown-content {
+    display: block;
+  } */
+
+@media screen and (max-width: 768px) {
+  .dropdown {
+    display: inline-block;
+  }
+  .whatsapp-header-link span {
+    display: none;
+  }
+  .dropbtn {
+    display: flex;
+    font-weight: bolder;
+    /* background-color: #44988b; */
+
+    color: #faaf3e;
+    padding: 0px;
+    font-size: 32px;
+    border: none;
+    white-space: nowrap;
+  }
+  .start-p {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 20px;
+    justify-content: space-between;
+    white-space: nowrap;
+  }
+  .menu ul li {
+    margin: 0px 25px;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .logo-img,
+  .menu {
+    display: none;
+  }
+  .top-header {
+    margin: 0px;
+    padding: 0px;
+  }
+  .search {
+    display: none;
+  }
+  .account-arrow {
+    display: none;
+  }
+  .account {
+    display: none;
+  }
+  .end-p {
+    padding-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .ShoppingCartIcon-responsive {
+    display: flex;
+  }
+}
+.cart-icon {
+  content: "";
+  background: blue;
+  color: white;
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  right: -8px;
+  top: -3px;
+  font-size: 0.6rem;
+  display: grid;
+  place-items: center;
+}
+
+.inline-block {
+  /* background: url(https://www.countryflags.io/lb/flat/64.png) no-repeat; */
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+.header-sentence {
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  align-items: center; /* Centers the content vertically */
+  font-size: 1.125rem; /* Equivalent to text-lg */
+  font-weight: 500; /* Equivalent to font-medium */
+}
+@media screen and (max-width: 768px) {
+  .header-sentence {
+    font-size: 0.8rem; /* Set font size to 0.5rem for mobile view */
+  }
+}
+
+.location-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 250px;
+}
+
+.location-select {
+  height: 20px !important;
+}
+
+.location-select .MuiInputBase-root {
+  height: 20px !important;
+  min-height: 20px !important;
+}
+
+.location-select .MuiSelect-select {
+  height: 20px !important;
+  line-height: 20px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Apply different height for mobile screens */
+@media (max-width: 768px) {
+  .location-select {
+    height: 40px !important;
+  }
+
+  .location-select .MuiInputBase-root {
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+
+  .location-select .MuiSelect-select {
+    height: 40px !important;
+    line-height: 40px !important;
+  }
+  .location-label {
+    display: none; /* Hide the "Location" label on mobile */
+  }
+
+  .location-text {
+    display: none; /* Hide the text (Lebanon / Outside Lebanon) on mobile */
+  }
+
+  .location-select {
+    width: 80px; /* Decrease the width of the select box on mobile */
+  }
+}
+
+.login-button {
+  padding: 8px 15px;
+  background-color: #faaf3e;
+  text-decoration: none;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+
+.login-button:hover {
+  background-color: white;
+  color: #faaf3e;
+}
+
+@media screen and (min-width: 769px) {
+  .end-p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 100px;
+    gap: 20px;
+  }
+
+  .location-container {
+    background-color: #faaf3e;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-right: auto; /* Pushes the location selector to the left */
+  }
+
+  .login-button {
+    margin-left: 20px; /* Adds spacing between select and login */
+  }
+}

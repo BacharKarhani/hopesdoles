@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+.Fill_Dolls {
+  background-color: #fcf4e7;
+  padding: 20px;
+}
+
+.Fill_Dolls h1 {
+  color: #554a45;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  text-decoration: underline;
+  -webkit-text-decoration-color: #f7642e;
+  text-decoration-color: #f7642e;
+  text-underline-offset: 8px;
+  padding-bottom: 10px;
+}
+.FillDolls_first {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.FillDolls_first iframe {
+  border-radius: 2%;
+}
+.FillDolls_all {
+  padding-top: 40px;
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  row-gap: 10px;
+  width: 75%
+}
+.FillDolls_all_whole{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.FillDolls_all iframe {
+  border-radius: 15px;
+}
+.DollsHouse_pagination {
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .Fill_Dolls h1 {
+    font-size: 18px;
+    text-underline-offset: 5px;
+  }
+  .FillDolls_first iframe {
+    width: 380px;
+    height: 200px;
+  }
+
+  .FillDolls_all iframe {
+    width: 250px;
+    height: 250px;
+  }
+  .FillDolls_all {
+    margin-bottom: 30px;
+  }
+}
+@media only screen and (max-width: 870px) {
+  .Fill_Dolls h1 {
+    font-size: 18px;
+    text-underline-offset: 5px;
+  }
+  .FillDolls_first iframe {
+    width: 380px;
+    height: 200px;
+  }
+
+  .FillDolls_all iframe {
+    width: 355px;
+    height: 200px;
+  }
+  .FillDolls_all {
+    margin-bottom: 5px;
+  }
+  .DollsHouse_pagination {
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .FillDolls_first iframe {
+    width: 90%;
+  }
+  .FillDolls_all iframe {
+    width: 100%;
+  }
+}

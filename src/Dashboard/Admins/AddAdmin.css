@@ -1,0 +1,22 @@
+.admin_data{
+    margin-left: 220px;
+}
+.admin_form{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+.submit-btn{
+    border: none;
+    padding: 10px 25px;
+    color: #fff;
+    background-color: rgb(67, 190, 247);
+    cursor: pointer;
+}
+#name, #email, #password, #phone{
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+}

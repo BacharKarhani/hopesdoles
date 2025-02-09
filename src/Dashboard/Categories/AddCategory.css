@@ -1,0 +1,9 @@
+.category_data{
+    margin-left: 220px;
+}
+.category_form{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}

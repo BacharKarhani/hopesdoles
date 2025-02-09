@@ -1,0 +1,14 @@
+.collection_data{
+    margin-left: 220px;
+}
+.dashboard_collection_form{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+.select_category{
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 17px;
+}

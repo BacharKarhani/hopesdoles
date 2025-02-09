@@ -1,0 +1,15 @@
+.editVideo_data {
+  margin-left: 220px;
+}
+.dashboard_editvideo_form {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.dashboard_editvideo_form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+}

@@ -1,0 +1,27 @@
+.add_about_form{
+    margin-left: 220px;
+}
+.about_form{
+  padding: 10px;
+display: flex;
+flex-direction: column;
+width: 50%;
+}
+#arabic_paragraph, #english_paragraph{
+padding: 10px;
+margin-bottom: 10px;
+border-radius: 5px;
+border: 1px solid black;
+height: 200px;
+}
+#images{
+  padding: 10px;
+margin-bottom: 10px;
+border-radius: 5px;
+border: 1px solid black;
+  
+}
+.about_title{
+    margin-left: 10px;
+    padding-top: 10px;
+} 

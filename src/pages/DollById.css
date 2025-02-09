@@ -1,0 +1,216 @@
+/* General Styling */
+.container-show-doll {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.one-show-doll-first-step {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.one-show-doll-dolls-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Layout */
+.one-show-doll-res-content-under-img {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: center;
+  align-items: stretch; /* Ensures both sections stretch to the same height */
+}
+
+/* Image Section */
+.one-show-doll-logo-imgs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex: 1; /* Ensures this section takes equal space */
+  height: 100%; /* Ensures it stretches to fill the available height */
+}
+
+/* Image Styling */
+.one-show-doll-logo-imgs img {
+  width: 100%;  /* Ensures the image width is the same as the product detail */
+  height: auto; /* Maintains aspect ratio */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.one-show-doll-logo-imgs img:hover {
+  transform: scale(1.05);
+}
+
+/* Product Details */
+.one-show-doll-photo-detail {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  flex: 1; /* Ensures this section takes equal space */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Align the content to fill the height */
+}
+
+.one-show-doll-photo-detail h1 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 15px;
+}
+
+/* Rating & Price */
+.one-show-doll-pap {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #faaf3e;
+  margin-bottom: 15px;
+}
+
+/* Package, Size, Clothes Sections */
+.one-show-doll-pac-size-cloth h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px 0;
+  color: #222;
+}
+
+.one-show-doll-package,
+.one-show-doll-size,
+.one-show-doll-clothes {
+  background: #fff;
+  padding: 5px;
+  border-radius: 12px;
+  margin: 15px 0;
+  width: 100%;
+  /* max-width: 350px; */
+  text-align: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.one-show-doll-dashed li {
+  list-style: none;
+  font-size: 18px;
+  padding: 8px;
+  color: #666;
+}
+
+/* Quantity Section */
+.one-show-doll-count-quant {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.one-show-doll-minus-button,
+.one-show-doll-plus-button {
+  background: #faaf3e;
+  color: white;
+  font-size: 22px;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.one-show-doll-minus-button:hover,
+.one-show-doll-plus-button:hover {
+  background: #faaf3e;
+}
+
+.one-show-doll-numb {
+  font-size: 20px;
+  font-weight: bold;
+  width: 50px;
+  text-align: center;
+}
+
+/* Add to Cart & Buy Now Buttons */
+.one-show-doll-add-to-cart-btn,
+.one-show-doll-buy-now-btn {
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+  font-weight: bold;
+}
+
+.one-show-doll-add-to-cart-btn {
+  background: #faaf3e;
+}
+
+.one-show-doll-add-to-cart-btn:hover {
+  background: #faaf3e;
+}
+
+.one-show-doll-buy-now-btn {
+  background: #faaf3e;
+}
+
+.one-show-doll-buy-now-btn:hover {
+  background: #faaf3e;
+}
+
+/* Price Section */
+.one-show-doll-price-sec {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+}
+
+#one-show-doll-total-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #444;
+}
+
+#one-show-doll-tot-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #faaf3e;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .one-show-doll-res-content-under-img {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .one-show-doll-photo-detail {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .one-show-doll-price-sec {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* .one-show-doll-logo-imgs img {
+    max-width: 350px;
+  } */
+}

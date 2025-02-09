@@ -1,0 +1,76 @@
+.AddProduct input[type="text"],
+.AddProduct select,
+.AddProduct textarea {
+  width: 100%;
+  padding: 7px;
+  border: 1px solid black;
+  border-radius: 4px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.AddProduct label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+.quantity{
+  width: 100%;
+  padding: 12px;
+}
+
+.AddProduct input[type="submit"] {
+  background-color: #04aa6d;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+.AddProductcontainer {
+  margin-left: 220px;
+}
+.labelProduct {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.divProduct {
+  float: left;
+  width: 65%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.addProductrow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.uploadButton {
+  margin-bottom: 150px;
+}
+
+.addProductrow button {
+  background-color: #2d7a2d;
+  color: #fff;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .labelProduct,
+  .divProduct,
+  .addProductrow button[type="submit"] {
+    width: 100%;
+    margin-top: 0;
+  }
+}

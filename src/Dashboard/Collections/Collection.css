@@ -1,0 +1,40 @@
+.collection_table {
+  margin-left: 225px;
+  padding-top: 20px;
+}
+.styled-table-coll {
+  border-collapse: collapse;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  /* max-width: 800px; */
+  width: 90%;
+}
+.styled-table-coll thead tr {
+  background-color: black;
+  color: #fff;
+  text-align: left;
+}
+.styled-table-coll th,
+.styled-table-coll td {
+  padding: 12px 15px;
+}
+.styled-table-coll tbody tr {
+  border-bottom: 1px solid #000;
+}
+.styled-table-coll tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+.styled-table-coll tbody tr:last-of-type {
+  border-bottom: 2px solid #000;
+}
+.add-collection-btn {
+  border: none;
+  background-color: #2cabff;
+  padding: 10px 25px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}

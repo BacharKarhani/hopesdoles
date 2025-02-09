@@ -1,0 +1,69 @@
+.checkout-form {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 1rem;
+}
+
+.checkout-form > h3 {
+  font-size: 2rem;
+  align-self: flex-start;
+  margin-left: 1rem;
+}
+
+.checkout-form > div {
+  width: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.checkout-form > div > input,
+.mm-yy > input {
+  width: 80%;
+  outline: none;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.checkout-form > div > button {
+  width: 80%;
+  outline: none;
+  padding: 12px;
+  background: linear-gradient(to left, #000, #e97436);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.checkout-form > div > button:hover {
+  transition: all 5s ease;
+  background: linear-gradient(to right, #000, #e97436);
+  box-shadow: none;
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 768px) {
+  .checkout-form {
+    width: 80%; /* Ensure checkout form takes 80% of the screen width on mobile */
+    margin: 0 auto; /* Center the form */
+    padding: 10px; /* Optional: Add some padding for better touch interaction */
+  }
+
+  .checkout-form > div {
+    width: 100%; /* Make input sections take full width in mobile view */
+  }
+
+  .checkout-form > div > input,
+  .mm-yy > input {
+    width: 100%; /* Make inputs full width */
+  }
+
+  .checkout-form > div > button {
+    width: 100%; /* Make the button take full width */
+  }
+}
