@@ -141,12 +141,6 @@ function Home() {
             </Link>
           </div>
           <div className="discover_images_data">
-            <Link className="links" to="/hoops">
-              <img src={Hoops} alt="Doll-Logo" />
-              <p>Hoops</p>
-            </Link>
-          </div>
-          <div className="discover_images_data">
             <Link className="links" to="/filldoll/FillDolls">
               <img className="clothes_image" src={Clothes} alt="Doll-Logo" />
               <p>Clothes</p>
@@ -155,7 +149,7 @@ function Home() {
           <div className="discover_images_data">
             <Link className="links" to="/filldoll/FillDolls">
               <img src={FillDoll} alt="Doll-Logo" />
-              <p>How to fill the doll</p>
+              <p>How to fill the doll?</p>
             </Link>
           </div>
           <div className="discover_images_data">
@@ -168,6 +162,12 @@ function Home() {
             <Link className="links" to="/facts/PsychologicalFacts">
               <img src={Facts} alt="Doll-Logo" />
               <p>Psychological Facts</p>
+            </Link>
+          </div>
+          <div className="discover_images_data">
+            <Link className="links" to="/hoops">
+              <img src={Hoops} alt="Doll-Logo" />
+              <p>Hoops</p>
             </Link>
           </div>
         </div>

@@ -30,6 +30,7 @@ export default function Dolls(props) {
       setInLebanon(storedLocation === "true");
     }
   }, []);
+
   useEffect(() => {
     getproducts();
     getCollections();
@@ -188,7 +189,6 @@ export default function Dolls(props) {
           <div className="dools-items">
             <div className="filter">
               <div>
-          
                 <p>Sort By:</p>
 
                 <div className="filter_By">
@@ -206,6 +206,8 @@ export default function Dolls(props) {
                       <MenuItem value="3">
                         <em>By Date</em> {/* Now sorts by `createdAt` */}
                       </MenuItem>
+                      <MenuItem value="4">Best Seller</MenuItem>
+
                       <MenuItem value="2">Highest</MenuItem>
                       <MenuItem value="1">Lowest</MenuItem>
                     </Select>
@@ -221,10 +223,11 @@ export default function Dolls(props) {
                     .slice()
                     .sort((a, b) => {
                       if (sortProduct === "1") return a.price - b.price;
-                      if (sortProduct === "2") return b.price - a.price;
-                      if (sortProduct === "3")
+                      else if (sortProduct === "2") return b.price - a.price;
+                      else if (sortProduct === "3")
                         return new Date(b.createdAt) - new Date(a.createdAt);
-                      return 0;
+                      else if (sortProduct === "4")
+                        return b.isBestSeller - a.isBestSeller;
                     })
                     .map((doll, index) => (
                       <div key={index} className="item">

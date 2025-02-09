@@ -92,7 +92,7 @@
   .image__container .image__content {
     position: absolute;
     top: 50%;
-    left: 2%;
+    left: 5%;
     transform: translateY(-50%);
   }
 }
@@ -245,9 +245,15 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
     grid-gap: 25px 0px;
+    padding: 5%;
+  }
+  .discover_images_data img{
+    width: 150px;
+    height: 150px;
   }
   .discover_images_data p {
     font-size: 18px;
+    
   }
   .handmade_paragraphs {
     width: 70%;

@@ -19,14 +19,14 @@ export default function Header() {
   useEffect(() => {
     getUser();
     
-    const storedLocation = localStorage.getItem("inLebanon");
+    // const storedLocation = localStorage.getItem("inLebanon");
   
-    if (storedLocation === null) {
-      localStorage.setItem("inLebanon", "true");
-      setInLebanon(true);
-    } else {
-      setInLebanon(storedLocation === "true");
-    }
+    // if (storedLocation === null) {
+    //   localStorage.setItem("inLebanon", "true");
+    //   setInLebanon(true);
+    // } else {
+    //   setInLebanon(storedLocation === "true");
+    // }
   }, []);
   
 
@@ -43,6 +43,10 @@ export default function Header() {
   return (
     <div>
       <div>
+      <div className="header-sentence text-lg font-medium">
+          <Flag code="LB" className="inline-block w-6 h-4 mr-1" /> Lebanon
+          Delivery $3 | 🌎 Worldwide Shipping: $8
+        </div>
         <div className="top-header">
           <div className="start-p">
             <a
@@ -50,12 +54,12 @@ export default function Header() {
               href="/"
               rel="noopener noreferrer"
             >
-              <img src={logo} width={100} height={100} alt="Logo" />
+              <img src={logo} width={100} height={50} alt="Logo" />
             </a>
           </div>
 
           <div className="end-p">
-            <div className="location-container">
+            {/* <div className="location-container">
               <p className="location-label">Location:</p>
               <FormControl className="location-select">
                 <Select
@@ -79,9 +83,9 @@ export default function Header() {
                   </MenuItem>
                 </Select>
               </FormControl>
-            </div>
+            </div> */}
 
-            {user ? (
+            {/* {user ? (
               <NavLink
                 to="/settings"
                 className="end-p"
@@ -124,7 +128,7 @@ export default function Header() {
               >
                 Login
               </NavLink>
-            )}
+            )} */}
 
             <div className="ShoppingCartIcon-responsive">
               <NavLink to="/cart" style={{ color: "#faaf3e" }}>
@@ -136,10 +140,7 @@ export default function Header() {
             <DropDown />
           </div>
         </div>
-        <div className="header-sentence text-lg font-medium">
-          <Flag code="LB" className="inline-block w-6 h-4 mr-1" /> Lebanon
-          Delivery $3 | 🌎 Worldwide Shipping: $8
-        </div>
+
       </div>
 
       <div className="logo-img">

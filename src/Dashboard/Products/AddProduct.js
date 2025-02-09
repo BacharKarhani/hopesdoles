@@ -3,6 +3,7 @@ import "./AddProduct.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 function AddProducts(props) {
   toast.configure();
 
@@ -42,6 +43,7 @@ function AddProducts(props) {
     getCollections();
     getCategs();
   }, []);
+
   const [state, setState] = useState({
     name: "",
     quantity: "",
@@ -52,7 +54,9 @@ function AddProducts(props) {
     package: "",
     category: "",
     Collection: "",
+    isBestSeller: false, // Default to false
   });
+
   const [image, setImages] = useState([]);
 
   const handleSubmit = (e) => {
@@ -72,6 +76,7 @@ function AddProducts(props) {
     formData.append("package", state.package);
     formData.append("category", state.category);
     formData.append("Collection", state.Collection);
+    formData.append("isBestSeller", state.isBestSeller);
 
     axios
       .post(`https://api.hopesdolls.com/api/products`, formData, {
@@ -82,7 +87,7 @@ function AddProducts(props) {
       })
       .then((res) => {
         console.log("res ", res.data);
-        toast.success("Product Added Successfulyy");
+        toast.success("Product Added Successfully");
         setImages({
           image: "",
         });
@@ -95,6 +100,7 @@ function AddProducts(props) {
           package: "",
           category: "",
           Collection: "",
+          isBestSeller: false, // Reset to false after submission
         });
       })
       .catch((err) => {
@@ -111,6 +117,10 @@ function AddProducts(props) {
   const handleImage = (e) => {
     console.log("handleImage ", e.target.files);
     setImages({ image: e.target.files });
+  };
+
+  const handleCheckbox = (e) => {
+    setState({ ...state, isBestSeller: e.target.checked });
   };
 
   return (
@@ -172,7 +182,7 @@ function AddProducts(props) {
             </div>
             <div className="addProductrow">
               <div className="labelProduct">
-                <label htmlFor="outprice">Price</label>
+                <label htmlFor="outprice">Price Outside</label>
               </div>
               <div className="divProduct">
                 <input
@@ -280,6 +290,18 @@ function AddProducts(props) {
                 </select>
               </div>
             </div>
+            <div className="addProductrow">
+              <div className="labelProduct">
+                <label htmlFor="isBestSeller">Is Best Seller?</label>
+                <input
+                  type="checkbox"
+                  id="isBestSeller"
+                  name="isBestSeller"
+                  checked={state.isBestSeller}
+                  onChange={handleCheckbox}
+                />
+              </div>
+            </div>
             <div className="uploadButton">
               <input
                 type="file"
@@ -301,4 +323,5 @@ function AddProducts(props) {
     </>
   );
 }
+
 export default AddProducts;

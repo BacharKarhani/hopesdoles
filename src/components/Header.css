@@ -232,10 +232,16 @@ ul {
   align-items: center; /* Centers the content vertically */
   font-size: 1.125rem; /* Equivalent to text-lg */
   font-weight: 500; /* Equivalent to font-medium */
+  background-color: #faaf3e;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  color: #fff;
 }
 @media screen and (max-width: 768px) {
   .header-sentence {
-    font-size: 0.8rem; /* Set font size to 0.5rem for mobile view */
+    font-size: 0.8rem; 
+    padding-top: 2%;
+    padding-bottom: 2%;/* Set font size to 0.5rem for mobile view */
   }
 }
 
