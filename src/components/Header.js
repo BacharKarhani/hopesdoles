@@ -72,7 +72,7 @@ export default function Header() {
                 >
                   <MenuItem value="Lebanon">
                     <Flag code="LB" className="inline-block w-6 h-4 mr-1" />
-                    <span className="location-text">Lebanon</span>
+                    <span className="location-text">Lebanonnnn</span>
                   </MenuItem>
                   <MenuItem value="Outside">
                     🌎 <span className="location-text">Outside Lebanon</span>
