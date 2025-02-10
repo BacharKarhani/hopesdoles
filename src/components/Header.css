@@ -233,8 +233,8 @@ ul {
   font-size: 1.125rem; /* Equivalent to text-lg */
   font-weight: 500; /* Equivalent to font-medium */
   background-color: #faaf3e;
-  padding-top: 1%;
-  padding-bottom: 1%;
+  padding-top: 5px;
+  padding-bottom: 5px;
   color: #fff;
 }
 @media screen and (max-width: 768px) {
