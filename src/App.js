@@ -195,7 +195,7 @@ function App() {
         <Route path="/filldoll/:name" element={<FillDolls />} />
         <Route path="/dollhouse/:name" element={<DollsHouse />} />
         <Route path="/product/:id" element={<DollById />} />
-        <Route path="/checkout" element={user ? <CheckOut /> : <UserLogin />} />
+        <Route path="/checkout" element={<CheckOut />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
         {categories.map((each) => {

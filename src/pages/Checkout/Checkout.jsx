@@ -5,29 +5,32 @@ import Header from "../../components/Header";
 import Address from "../../components/Address";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { Store } from "../../Store";
-import { Navigate, useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const [value, setValue] = useState("1");
   const [err, setError] = useState("");
-  const [addr, setAddr] = useState(false); 
+  const [addr, setAddr] = useState(false);
   const [data, setData] = useState({
-    region: "",
-    city: "",
-    district: "",
+    name: "",
+    email: "",
     street: "",
-    building: "",
-    floor: "",
+    city: "",
+    state: "",
+    zip: "",
+    country: "",
   });
   const [country, setCountry] = useState("");
   const [lb, setLb] = useState(false);
-  const { state, dispatch } = useContext(Store);
   const [ids, setIds] = useState([]);
-
-  const { cart: { cartItems } } = state;
+  const { state, dispatch } = useContext(Store);
 
   const Navigate = useNavigate();
+
+  // Mock cart items for now
+  const { cart: { cartItems } } = state;
+
 
   useEffect(() => {
     cartItems.forEach((cart) => {
@@ -65,76 +68,32 @@ const Checkout = () => {
     }));
   };
 
-  const checkAddr = () => {
-    const addr = localStorage.getItem("addr");
-    if (addr) {
-      setAddr(true);
-      setData(JSON.parse(addr));
-    }
-  };
-
-  useEffect(() => {
-    checkAddr();
-  }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (Object.values(data).some((field) => field.trim() === "")) {
-    //   setError("All fields are required");
-    //   return;
-    // }
+    try {
+      // Send address and user data to your server
+      await axios.post("https://api.hopesdolls.com/api/orders", {
+        name: data.name,
+        email: data.email,
+        address: {
+          street: data.street,
+          city: data.city,
+          state: data.state,
+          zip: data.zip,
+          country: data.country,
+        },
+        product_id: ids,
+        payment_type: "cash on delivery",
+        quantity: 1,
+        totalPrice: cartItems.reduce((a, c) => a + c.price * c.quantity, 0), // Replace with actual total
+      });
 
-    // if (country.toLowerCase() !== data.region.toLowerCase()) {
-    //   toast.error("Your region location is different from the region you chose");
-    //   return;
-    // }
-
-      try {
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        // Update user address
-        await axios.put(
-          `https://api.hopesdolls.com/api/users/${user._id}`,
-          {
-            address: {
-              region: data.region,
-              city: data.city,
-              district: data.district,
-              street: data.street,
-              building: data.building,
-              floor: data.floor,
-            },
-          },
-          {
-            headers: {
-              "ngrok-skip-browser-warning": "anyvalue",
-            },
-          }
-        );
-
-        // Submit order
-        await axios.post(
-          "https://api.hopesdolls.com/api/orders",
-          {
-            client_id: user._id.toString(),
-            product_id: ids,
-            payment_type: "cash on delivery",
-            quantity: 1,
-            totalPrice: 2, // Replace with actual total
-          },
-          {
-            headers: {
-              "ngrok-skip-browser-warning": "anyvalue",
-            },
-          }
-        );
-
-        toast.success("Your order has been placed successfully!");
-        Navigate("/");
-      } catch (err) {
-        console.error(err);
-        toast.error("Something went wrong, please try again or contact us.");
-      }
+      toast.success("Your order has been placed successfully!");
+      Navigate("/"); // Redirect to home or another page
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong, please try again or contact us.");
+    }
   };
 
   return (
@@ -148,6 +107,7 @@ const Checkout = () => {
             handleChange={handleInputChange}
             addr={addr}
             lb={lb}
+            data={data} // Passing the user data to Address component
           />
           {/* Submit button */}
           <button

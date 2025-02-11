@@ -5,43 +5,31 @@ import { toast } from "react-toastify";
 import PaypalPayment from "./paypal/paypal";
 import { Store } from "../Store";
 
-const Address = ({ handleSubmit, handleChange, lb }) => {
-  const { state, dispatch } = useContext(Store);
-  toast.configure();
-  let [id, setId] = useState("");
-  console.log(id);
+const Address = ({ handleSubmit, handleChange, lb, data }) => {
   const [address, setAddress] = useState({});
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    const JSONUser = JSON.parse(user);
-    setId(JSONUser._id);
-  }, [id]);
+  const [id, setId] = useState("");
+  const { state, dispatch } = useContext(Store);
   const {
     cart: { cartItems },
   } = state;
 
+  useEffect(() => {
+    // You can handle logic to fetch or use user data as needed.
+    setId(data.name);
+  }, [data]);
+
   const getAddress = async () => {
     try {
-      let res = await axios.get(
-        `https://api.hopesdolls.com/api/users/getUser/${
-          JSON.parse(localStorage.getItem("user"))._id
-        }`,
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "Asdasd",
-          },
-        }
-      );
-      setAddress(res.data?.address);
+      // Make API call if needed to fetch the address or manage
+      setAddress(data);
       if (
-        res.data.address?.region &&
-        res.data.address?.city &&
-        res.data.address?.district &&
-        res.data.address?.building &&
-        res.data.address?.street &&
-        res.data.address?.floor
+        data.street &&
+        data.city &&
+        data.state &&
+        data.zip &&
+        data.country
       ) {
-        localStorage.setItem("addr", JSON.stringify(res.data.address));
+        localStorage.setItem("addr", JSON.stringify(data)); // Saving to local storage
       }
     } catch (err) {
       console.log(err);
@@ -50,8 +38,7 @@ const Address = ({ handleSubmit, handleChange, lb }) => {
 
   useEffect(() => {
     getAddress();
-    return;
-  }, [id]);
+  }, [data]);
 
   return (
     <>
@@ -59,82 +46,89 @@ const Address = ({ handleSubmit, handleChange, lb }) => {
         <h3>Address</h3>
         <div>
           <input
-            placeholder="Region"
+            placeholder="Name"
             type="text"
+            name="name"
             onChange={handleChange}
-            name="region"
-            defaultValue={address ? address.region : ""}
-            required={true}
+            value={data.name}
+            required
           />
         </div>
         <div>
           <input
-            required={true}
-            placeholder="City"
-            type="text"
+            placeholder="Email"
+            type="email"
+            name="email"
             onChange={handleChange}
-            name="district"
-            defaultValue={address ? address.district : ""}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="Area"
-            type="text"
-            onChange={handleChange}
-            defaultValue={address ? address.city : ""}
-            name="city"
-            required={true}
+            value={data.email}
+            required
           />
         </div>
         <div>
           <input
             placeholder="Street"
             type="text"
-            onChange={handleChange}
             name="street"
-            defaultValue={address ? address.street : ""}
+            onChange={handleChange}
+            value={data.street}
+            required
           />
         </div>
         <div>
           <input
-            placeholder="Building"
+            placeholder="City"
             type="text"
+            name="city"
             onChange={handleChange}
-            name="building"
-            defaultValue={address ? address.building : ""}
-            required={true}
+            value={data.city}
+            required
           />
         </div>
         <div>
           <input
-            placeholder="Floor"
-            type="number"
+            placeholder="State"
+            type="text"
+            name="state"
             onChange={handleChange}
-            name="floor"
-            defaultValue={address ? address.floor : ""}
-            required={true}
-            min="0"
+            value={data.state}
+            required
           />
         </div>
+        <div>
+          <input
+            placeholder="Zip"
+            type="text"
+            name="zip"
+            onChange={handleChange}
+            value={data.zip}
+            required
+          />
+        </div>
+        <div>
+          <input
+            placeholder="Country"
+            type="text"
+            name="country"
+            onChange={handleChange}
+            value={data.country}
+            required
+          />
+        </div>
+
         <div>
           {!lb ? (
             <PaypalPayment
-              amount={
-                lb
-                  ? cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
-                  : cartItems.reduce(
-                      (a, c) => a + c.priceOutside * c.quantity,
-                      0
-                    )
-              }
+              amount={data
+                ? cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
+                : cartItems.reduce((a, c) => a + c.priceOutside * c.quantity, 0)}
             />
           ) : (
-            <button>Proceed to Checkout</button>
+            <button type="submit">Proceed to Checkout</button>
           )}
         </div>
       </form>
     </>
   );
 };
+
 export default Address;

@@ -33,16 +33,9 @@ const Cart = () => {
   };
 
   const checkoutHandler = () => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      // Assuming user is stored as a JSON string, we parse it
-      const parsedUser = JSON.parse(user);
-      if (parsedUser) {
+
         navigate("/checkout");
-      }
-    } else {
-      navigate("/login?redirect=/checkout");
-    }
+
   };
 
   const removeItemHandler = (item) => {
