@@ -1,5 +1,4 @@
 import React from "react";
-import "./Dolls.css";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -8,22 +7,20 @@ import Pagination from "../components/Pagination";
 import Whatsapp from "../components/Whatsapp";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Loading from "../components/Loader";
 import { useParams } from "react-router-dom";
+import "./Dolls.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Loading from "../components/Loader";
 
 export default function Dolls(props) {
   const [product, setProducts] = useState([]);
-  const [sortProduct, setSortProducts] = useState(product);
+  const [sortProduct, setSortProducts] = useState("latest"); // Default sort is latest
   const [collection, setCollection] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isChecked, setIsChecked] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [totalPages, setTotalPages] = useState(1);
-  const [value, setValue] = useState(3);
-
-
   const [inLebanon, setInLebanon] = useState(true);
 
   useEffect(() => {
@@ -32,12 +29,11 @@ export default function Dolls(props) {
       setInLebanon(storedLocation === "true");
     }
   }, []);
-  
 
   useEffect(() => {
     getproducts();
     getCollections();
-  }, []);
+  }, [sortProduct]); // Trigger when sortProduct changes
 
   useEffect(() => {
     if (isChecked.length > 0) getCollectionsApi();
@@ -45,16 +41,18 @@ export default function Dolls(props) {
   }, [isChecked]);
 
   let { name } = useParams();
+
+  // Adjusted getproducts function to include sorting
   const getproducts = async () => {
-    let res = await axios.get(
-      `https://api.hopesdolls.com/api/products/some/${props.id}`,
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "anyvalue",
-        },
-      }
-    );
     try {
+      let res = await axios.get(
+        `https://api.hopesdolls.com/api/products/some/${props.id}?sort=${sortProduct}`,
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "anyvalue",
+          },
+        }
+      );
       setProducts(res.data.data);
       setTotalPages(res.data.pages);
       setLoading(false);
@@ -63,16 +61,17 @@ export default function Dolls(props) {
     }
   };
 
+  // Adjusted getproductsByPagination function to include sorting
   const getproductsByPagination = async (page_id) => {
-    let res = await axios.get(
-      `https://api.hopesdolls.com/api/products/some/651ec10bffdc8668b22aed5f?page=${page_id}`,
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "anyvalue",
-        },
-      }
-    );
     try {
+      let res = await axios.get(
+        `https://api.hopesdolls.com/api/products/some/${props.id}?page=${page_id}&sort=${sortProduct}`,
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "anyvalue",
+          },
+        }
+      );
       setProducts(res.data.data);
       setTotalPages(res.data.pages);
       setLoading(false);
@@ -83,7 +82,7 @@ export default function Dolls(props) {
 
   const getCollections = async () => {
     let res = await axios.get(
-      `https://api.hopesdolls.com/api/collections/some/651ec10bffdc8668b22aed5f`,
+      `https://api.hopesdolls.com/api/collections/some/${props.id}`,
       {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
@@ -118,7 +117,6 @@ export default function Dolls(props) {
     }
   };
 
-  // const handleOnChange = (event) => {
   const handleOnChange = (e, name) => {
     const value = e.target.checked;
     const collection_id = e.target.value;
@@ -144,8 +142,10 @@ export default function Dolls(props) {
           <div className="categories">
             <form className="AllCategories">
               <h1>Hoops</h1>
+
               <div>
                 <input
+                  className="allcategories_inputField"
                   type="text"
                   placeholder="Search Categories.."
                   name="search"
@@ -153,6 +153,7 @@ export default function Dolls(props) {
                 />
               </div>
             </form>
+
             <form className="Collection_form">
               <div className="collection">
                 {collection
@@ -164,23 +165,18 @@ export default function Dolls(props) {
                     )
                       return val;
                   })
-                  .map((e, index) => {
-                    return (
-                      <div className="collection-form" key={index}>
-                        <input
-                          type="checkbox"
-                          id={`collection ${index}`}
-                          onChange={(event) => handleOnChange(event, e.name)}
-                          name={"collection"}
-                          value={e._id}
-
-                          // onClick={() => filterResult("collection 1")}
-                        />
-
-                        <label htmlFor={`collection ${index}`}>{e.name}</label>
-                      </div>
-                    );
-                  })}
+                  .map((e, index) => (
+                    <div className="collection-form" key={index}>
+                      <input
+                        type="checkbox"
+                        id={`collection ${index}`}
+                        onChange={(event) => handleOnChange(event, e.name)}
+                        name={"collection"}
+                        value={e._id}
+                      />
+                      <label htmlFor={`collection ${index}`}>{e.name}</label>
+                    </div>
+                  ))}
               </div>
             </form>
           </div>
@@ -195,20 +191,18 @@ export default function Dolls(props) {
                     <Select
                       onChange={(e) => {
                         const selected = e.target.value;
-                        setSortProducts(selected);
-                        setValue(selected);
+                        setSortProducts(selected); // Update the sort state
                       }}
-                      value={value}
+                      value={sortProduct}
                       displayEmpty
                       inputProps={{ "aria-label": "Without label" }}
                     >
-                      <MenuItem value="3">
+                      <MenuItem value="latest">
                         <em>By Date</em> {/* Now sorts by `createdAt` */}
                       </MenuItem>
-                      <MenuItem value="4">Best Seller</MenuItem>
-
-                      <MenuItem value="2">Highest</MenuItem>
-                      <MenuItem value="1">Lowest</MenuItem>
+                      <MenuItem value="bestSeller">Best Seller</MenuItem>
+                      <MenuItem value="highest">Highest</MenuItem>
+                      <MenuItem value="lowest">Lowest</MenuItem>
                     </Select>
                   </FormControl>
                 </div>
@@ -217,26 +211,11 @@ export default function Dolls(props) {
 
             <div className="allDolls-items">
               <div className="items">
-                {product &&
-                  product
-                    .slice()
-                    .sort((a, b) => {
-                      if (sortProduct === "1") return a.price - b.price;
-                      else if (sortProduct === "2") return b.price - a.price;
-                      else if (sortProduct === "3")
-                        return new Date(b.createdAt) - new Date(a.createdAt);
-                      else if (sortProduct === "4")
-                        return b.isBestSeller - a.isBestSeller;
-                    })
-                    .map((doll, index) => (
-                      <div key={index} className="item">
-                        <Cards
-                          doll={doll}
-                          id={doll._id}
-                          inLebanon={inLebanon}
-                        />
-                      </div>
-                    ))}
+                {product.map((doll, index) => (
+                  <div key={index} className="item">
+                    <Cards doll={doll} id={doll._id} inLebanon={inLebanon} />
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -247,6 +226,7 @@ export default function Dolls(props) {
               />
             </div>
           </div>
+
           <Whatsapp />
         </div>
       )}
