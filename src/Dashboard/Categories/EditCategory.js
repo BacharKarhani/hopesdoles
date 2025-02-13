@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import "../../components/Loader.js";
+import URLs from "../../config/urls.js";
 function EditCategory() {
   toast.configure();
 
@@ -19,48 +20,51 @@ function EditCategory() {
     }
   }, [id]);
   const getSingleCategory = async (id) => {
-    const response = await axios.get(
-      `https://api.hopesdolls.com/api/categories/${id}`,
-      {
+    try {
+      const response = await axios.get(URLs.GET_CATEGORY(id), {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
+      });
+  
+      console.log(response);
+      if (response.status === 200) {
+        setState({ ...response.data });
       }
-    );
-    console.log(response);
-    if (response.status === 200) {
-      setState({ ...response.data });
+    } catch (error) {
+      console.error("Error fetching category:", error);
+      toast.error("Error While Fetching Category");
     }
   };
+  
 
   const handleChange = (e) => {
     e.persist();
     let { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       name: state.name,
     };
-    axios
-      .put(`https://api.hopesdolls.com/api/categories/${id}`, data, {
+  
+    try {
+      const response = await axios.put(URLs.UPDATE_CATEGORY(id), data, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setState({
-          name: "",
-        });
-        toast.success("Category Updated Successfully");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Error While Updating Category");
       });
+  
+      console.log(response.data);
+      setState({ name: "" });
+      toast.success("Category Updated Successfully");
+    } catch (error) {
+      console.error("Error updating category:", error);
+      toast.error("Error While Updating Category");
+    }
   };
+  
   return (
     <>
       <div className="category_data">

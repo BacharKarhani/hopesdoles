@@ -8,20 +8,18 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import Footer from "../../components/Footer";
+import URLs from "../../config/urls";
 
 const Cart = () => {
   const { state, dispatch } = useContext(Store);
   const navigate = useNavigate();
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(
-      `https://api.hopesdolls.com/api/products/${item._id}`,
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "anyvalue",
-        },
-      }
-    );
+    const { data } = await axios.get(URLs.GET_PRODUCT_BY_ID(item._id), {
+      headers: {
+        "ngrok-skip-browser-warning": "anyvalue",
+      },
+    });
     if (data.quantity < quantity) {
       alert(`This Item has only ${quantity - 1} available items in our stock`);
       return;
@@ -33,9 +31,7 @@ const Cart = () => {
   };
 
   const checkoutHandler = () => {
-
-        navigate("/checkout");
-
+    navigate("/checkout");
   };
 
   const removeItemHandler = (item) => {
@@ -46,7 +42,6 @@ const Cart = () => {
   const [inLebanon, setInLebanon] = useState(false);
 
   useEffect(() => {
-    // localStorage.getItem("lbc") ? setLb(true) : setLb(false);
     localStorage.getItem("inLebanon") === "true"
       ? setInLebanon(true)
       : setInLebanon(false);
@@ -56,7 +51,7 @@ const Cart = () => {
     cart: { cartItems },
   } = state;
 
-  const deliveryPrice = cartItems.length > 0 ? (inLebanon ? 3 : 8) : 0; // Only add delivery price if cart is not empty
+  const deliveryPrice = cartItems.length > 0 ? (inLebanon ? 3 : 8) : 0;
 
   const subtotal = lb
     ? cartItems.reduce((a, c) => a + c.priceOutside * c.quantity, 0)
@@ -65,7 +60,7 @@ const Cart = () => {
         0
       );
 
-  const total = subtotal + deliveryPrice; // Add delivery price to total
+  const total = subtotal + deliveryPrice;
 
   return (
     <>

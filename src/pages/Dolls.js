@@ -12,6 +12,7 @@ import "./Dolls.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Loading from "../components/Loader";
+import URLs from "../config/urls";
 
 export default function Dolls(props) {
   const [product, setProducts] = useState([]);
@@ -42,11 +43,11 @@ export default function Dolls(props) {
 
   let { name } = useParams();
 
-  // Adjusted getproducts function to include sorting
+  // Adjusted getproducts function to include sorting using the new URL
   const getproducts = async () => {
     try {
       let res = await axios.get(
-        `https://api.hopesdolls.com/api/products/some/${props.id}?sort=${sortProduct}`,
+        `${URLs.GET_PRODUCTS(props.id)}&sort=${sortProduct}`,  // Using the new URL constant
         {
           headers: {
             "ngrok-skip-browser-warning": "anyvalue",
@@ -61,11 +62,11 @@ export default function Dolls(props) {
     }
   };
 
-  // Adjusted getproductsByPagination function to include sorting
+  // Adjusted getproductsByPagination function to include sorting using the new URL
   const getproductsByPagination = async (page_id) => {
     try {
       let res = await axios.get(
-        `https://api.hopesdolls.com/api/products/some/${props.id}?page=${page_id}&sort=${sortProduct}`,
+        `${URLs.GET_PRODUCTS(props.id, page_id, sortProduct)}`, // Using the new URL constant
         {
           headers: {
             "ngrok-skip-browser-warning": "anyvalue",
@@ -80,9 +81,10 @@ export default function Dolls(props) {
     }
   };
 
+  // Fetch collections using the new URL constant
   const getCollections = async () => {
     let res = await axios.get(
-      `https://api.hopesdolls.com/api/collections/some/${props.id}`,
+      `${URLs.GET_COLLECTION_BY_ID(props.id)}`,  // Using the new URL constant
       {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
@@ -97,10 +99,11 @@ export default function Dolls(props) {
     }
   };
 
+  // Fetch collections by selected filter using the new URL constant
   const getCollectionsApi = async () => {
     const body = { collection: isChecked };
     let res = await axios.post(
-      `https://api.hopesdolls.com/api/products/ByCollecction`,
+      `${URLs.GET_PRODUCTS(props.id)}/ByCollecction`,  // Using the new URL constant
       body,
       {
         headers: {

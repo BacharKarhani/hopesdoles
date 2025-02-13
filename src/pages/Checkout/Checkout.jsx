@@ -7,6 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../../Store";
+import URLs from "../../config/urls";
 
 const Checkout = () => {
   const [value, setValue] = useState("1");
@@ -72,7 +73,7 @@ const Checkout = () => {
     e.preventDefault();
     try {
       // Send address and user data to your server
-      await axios.post("https://api.hopesdolls.com/api/orders", {
+      await axios.post(URLs.SUBMIT_ORDER(), {
         name: data.name,
         email: data.email,
         address: {

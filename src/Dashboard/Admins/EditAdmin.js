@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./AddAdmin.css";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import URLs from "../../config/urls";
+import "./AddAdmin.css";
 import "react-toastify/dist/ReactToastify.css";
 
 function EditAdmin() {
@@ -14,29 +15,35 @@ function EditAdmin() {
     password: "",
     phone: "",
   });
+
   const { id } = useParams();
+
   useEffect(() => {
     if (id) {
       getSingleAdmin(id);
     }
   }, [id]);
+
+  // Fetch single admin details
   const getSingleAdmin = async (id) => {
-    const response = await axios.get(
-      `https://api.hopesdolls.com/api/admins/${id}`,
-      {
+    try {
+      const response = await axios.get(URLs.DELETE_ADMIN(id), {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
-      }
-    );
-    console.log(response);
+      });
 
-    if (response.status === 200) {
-      setState({ ...response.data });
+      if (response.status === 200) {
+        setState(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching admin:", error);
+      toast.error("Failed to fetch admin details");
     }
   };
 
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
@@ -45,78 +52,74 @@ function EditAdmin() {
       password: state.password,
       phone: state.phone,
     };
-    axios
-      .put(`https://api.hopesdolls.com/api/admins/${id}`, data, {
+
+    try {
+      const res = await axios.put(URLs.DELETE_ADMIN(id), data, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setState({
-          name: "",
-          email: "",
-          phone: "",
-          password: "",
-        });
-        toast.success("Admin Updated Successfully");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Error While Adding Admin");
       });
+
+      console.log(res.data);
+      setState({ name: "", email: "", phone: "", password: "" });
+      toast.success("Admin Updated Successfully");
+    } catch (error) {
+      console.error("Error updating admin:", error);
+      toast.error("Error while updating admin");
+    }
   };
+
+  // Handle input changes
   const handleChange = (e) => {
-    let { name, value } = e.target;
+    const { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
+
   return (
-    <>
-      <div className="admin_data">
-        <h2>Edit Admin</h2>
-        <form className="admin_form" onSubmit={handleSubmit}>
-          <label htmlFor="name">Name</label>
-          <input
-            type={"text"}
-            id="name"
-            name="name"
-            placeholder="Enter Admin Name"
-            onChange={handleChange}
-            value={state.name}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type={"email"}
-            id="email"
-            name="email"
-            placeholder="Enter Admin Email"
-            onChange={handleChange}
-            value={state.email}
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type={"text"}
-            id="password"
-            name="password"
-            placeholder="Enter Admin Password"
-            onChange={handleChange}
-            value={state.password}
-          />
-          <label htmlFor="phone">Phone</label>
-          <input
-            type={"tel"}
-            id="phone"
-            name="phone"
-            placeholder="Enter Admin Phone"
-            onChange={handleChange}
-            value={state.phone}
-          />
-          <button className="submit-btn" type="submit">
-            Submit
-          </button>
-        </form>
-      </div>
-    </>
+    <div className="admin_data">
+      <h2>Edit Admin</h2>
+      <form className="admin_form" onSubmit={handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter Admin Name"
+          onChange={handleChange}
+          value={state.name}
+        />
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter Admin Email"
+          onChange={handleChange}
+          value={state.email}
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          type="text"
+          id="password"
+          name="password"
+          placeholder="Enter Admin Password"
+          onChange={handleChange}
+          value={state.password}
+        />
+        <label htmlFor="phone">Phone</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Enter Admin Phone"
+          onChange={handleChange}
+          value={state.phone}
+        />
+        <button className="submit-btn" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
   );
 }
 

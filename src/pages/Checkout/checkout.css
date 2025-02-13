@@ -31,7 +31,6 @@
 
 /* Optional: Centering the content inside Box component */
 .MuiBox-root {
-  display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;

@@ -27,6 +27,8 @@ import Emails from "./Emails/Email";
 import Coupons from "./Coupons/Coupons";
 import CreateCoupon from "./Coupons/CreateCoupon/CreateCoupon";
 import EditeCoupon from "./Coupons/EditCoupon/EditCoupon";
+import URLs from "../config/urls";
+
 function Dashboard() {
   const [categories, setCategories] = useState([]);
 
@@ -35,7 +37,7 @@ function Dashboard() {
   }, []);
 
   const getcategories = async () => {
-    let res = await axios.get(`https://api.hopesdolls.com/api/categories`, {
+    let res = await axios.get(URLs.CATEGORIES, {
       headers: {
         "ngrok-skip-browser-warning": "asd",
       },

@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import Loading from "../components/Loader";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import URLs from "../config/urls";
 
 export default function DollsHouse() {
   const [lastvideo, setLastVideo] = useState([]);
@@ -18,15 +19,12 @@ export default function DollsHouse() {
   const { name } = useParams();
 
   const getlastvideo = async () => {
-    let res = await axios.get(
-      `https://api.hopesdolls.com/api/video/last/${name}`,
-      {
+    try {
+      const res = await axios.get(URLs.getLastVideo(name), {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
-      }
-    );
-    try {
+      });
       setLastVideo(res.data.response);
       setLoading(false);
       console.log(res.data);

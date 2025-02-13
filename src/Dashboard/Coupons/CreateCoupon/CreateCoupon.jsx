@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import "./createCoupon.css";
 import { useNavigate } from "react-router-dom";
+import "./createCoupon.css";
+import URLs from "../../../config/urls";
 
 const CreateCoupon = () => {
   const [data, setData] = useState({});
@@ -20,7 +21,7 @@ const CreateCoupon = () => {
     e.preventDefault();
     try {
       axios
-        .post("https://api.hopesdolls.com/api/coupon/create", data, {
+        .post(URLs.CREATE_COUPON, data, {
           headers: {
             "ngrok-skip-browser-warning": "anyvalue",
           },
@@ -33,6 +34,7 @@ const CreateCoupon = () => {
       console.log(err);
     }
   };
+
   return (
     <div className="create-container">
       <h3>Create Coupon</h3>

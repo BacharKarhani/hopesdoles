@@ -6,6 +6,7 @@ import Pagination from "../../components/Pagination";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../../components/Loader";
+import URLs from "../../config/urls";
 
 export default function Products(props) {
   toast.configure();
@@ -21,16 +22,11 @@ export default function Products(props) {
   const getproductsByPagination = async (page_id = 1) => {
     setLoading(true);
     try {
-      const res = await axios.get(
-        `https://api.hopesdolls.com/api/products/some/${props.id}?page=${
-          page_id ? page_id : 1
-        }`,
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "anyvalue",
-          },
-        }
-      );
+      const res = await axios.get(URLs.GET_PRODUCTS(props.id, page_id), {
+        headers: {
+          "ngrok-skip-browser-warning": "anyvalue",
+        },
+      });
 
       if (res.data.status === "fail" || res.status === 404) {
         setProducts([]);
@@ -41,47 +37,42 @@ export default function Products(props) {
 
       setProducts(res.data.data);
       setTotalPages(res.data.pages);
-      setLoading(false);
     } catch (err) {
-      setLoading(false);
       console.log(err);
-      // Handle the error, e.g., toast.error("Error fetching data");
+    } finally {
+      setLoading(false);
     }
   };
 
-  async function getproductById(t_id) {
-    axios
-      .get(`https://api.hopesdolls.com/api/products/${t_id}`, {
+  const getproductById = async (t_id) => {
+    try {
+      const res = await axios.get(URLs.GET_PRODUCT_BY_ID(t_id), {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
-      })
-      .then((res) => {
-        setProductOne(res.data.response);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err);
       });
-  }
+      console.log(res.data.response);
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
+  };
 
-  async function deleteproductById(t_id) {
+  const deleteproductById = async (t_id) => {
     if (window.confirm("Are you sure you want to delete Product?")) {
-      const response = await axios
-        .delete(`https://api.hopesdolls.com/api/products/${t_id}`, {
+      try {
+        await axios.delete(URLs.DELETE_PRODUCT(t_id), {
           headers: {
             "ngrok-skip-browser-warning": "anyvalue",
           },
-        })
-        .then(() => {
-          toast.success("Product Deleted Successfully");
-          getproductsByPagination();
-        })
-        .catch((err) => {
-          console.log(err);
         });
+        toast.success("Product Deleted Successfully");
+        getproductsByPagination();
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }
+  };
 
   if (loading) {
     return (

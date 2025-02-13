@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
+import URLs from "../../config/urls";
 
 const Settings = () => {
   const [newPass, setNewPass] = useState({});
@@ -37,7 +38,7 @@ const Settings = () => {
     e.preventDefault();
     try {
       await axios
-        .put(`https://api.hopesdolls.com/api/users/password/${id}`, newPass, {
+        .put(URLs.CHANGE_PASSWORD(id), newPass, {
           headers: {
             "ngrok-skip-browser-warning": "anyvalue",
           },
@@ -45,11 +46,16 @@ const Settings = () => {
         .then((res) => {
           toast.success(res.data.msg);
           localStorage.setItem("user", JSON.stringify(res.data.data));
+          setNewPass({
+            password: "",
+            newpass: "",
+          }); // Clear form after successful update
         });
     } catch (error) {
-      toast.warning("something went wrong");
+      toast.warning("Something went wrong");
     }
   };
+
   return (
     <>
       <Header />

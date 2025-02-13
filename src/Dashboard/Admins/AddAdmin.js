@@ -3,6 +3,7 @@ import axios from "axios";
 import "./AddAdmin.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import URLs from "../../config/urls";
 
 function AddAdmin() {
   toast.configure();
@@ -23,7 +24,7 @@ function AddAdmin() {
       phone: state.phone,
     };
     axios
-      .post(`https://api.hopesdolls.com/api/admins/signup`, data, {
+      .post(URLs.ADMINSIGNUP, data, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },

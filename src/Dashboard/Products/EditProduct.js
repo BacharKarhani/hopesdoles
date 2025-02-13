@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
+import URLs from "../../config/urls";
 
 function EditProduct() {
   toast.configure();
@@ -35,14 +36,11 @@ function EditProduct() {
 
   const getproductById = async (id) => {
     try {
-      const response = await axios.get(
-        `https://api.hopesdolls.com/api/products/${id}`,
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "anyvalue",
-          },
-        }
-      );
+      const response = await axios.get(URLs.GET_PRODUCT_BY_ID(id), {
+        headers: {
+          "ngrok-skip-browser-warning": "anyvalue",
+        },
+      });
 
       if (response.status === 200) {
         setState({
@@ -59,7 +57,7 @@ function EditProduct() {
 
   const getCategories = async () => {
     try {
-      const res = await axios.get("https://api.hopesdolls.com/api/categories", {
+      const res = await axios.get(URLs.CATEGORIES, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -82,14 +80,11 @@ function EditProduct() {
 
   const getCollectionById = async (id, name) => {
     try {
-      const res = await axios.get(
-        `https://api.hopesdolls.com/api/collections/some/${id}`,
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "anyvalue",
-          },
-        }
-      );
+      const res = await axios.get(URLs.GET_COLLECTION_BY_ID(id), {
+        headers: {
+          "ngrok-skip-browser-warning": "anyvalue",
+        },
+      });
       if (name === "dolls") {
         setDollsCollection({ id, value: res.data });
       } else {
@@ -125,7 +120,7 @@ function EditProduct() {
     });
 
     axios
-      .put(`https://api.hopesdolls.com/api/products/${id}`, formData, {
+      .put(URLs.UPDATE_PRODUCT(id), formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "ngrok-skip-browser-warning": "asda",
@@ -259,20 +254,19 @@ function EditProduct() {
                 <label htmlFor="Collection">Category</label>
               </div>
               <div className="divProduct">
-
-              <select
-                name="category"
-                onChange={handleChange}
-                value={state.category}
-                required
-              >
-                <option value="">Select Category</option>
-                {category.map((item) => (
-                  <option key={item._id} value={item._id}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
+                <select
+                  name="category"
+                  onChange={handleChange}
+                  value={state.category}
+                  required
+                >
+                  <option value="">Select Category</option>
+                  {category.map((item) => (
+                    <option key={item._id} value={item._id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="addProductrow">

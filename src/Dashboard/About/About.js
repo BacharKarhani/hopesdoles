@@ -3,6 +3,7 @@ import "./About.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loader";
+import URLs from "../../../src/config/urls";
 
 function About() {
   const [about, setAbout] = useState([]);
@@ -10,7 +11,7 @@ function About() {
 
   useEffect(() => {
     axios
-      .get(`https://api.hopesdolls.com/api/abouts`, {
+      .get(URLs.ABOUTS, {
         headers: {
           "ngrok-skip-browser-warning": "adfs",
         },

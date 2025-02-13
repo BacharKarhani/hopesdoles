@@ -6,39 +6,37 @@ import { DeleteOutline } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import PreviewIcon from "@mui/icons-material/Preview";
+import URLs from "../../../../config/urls";
 
 const Rejected = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getData = async () => {
-    let res;
     try {
       setLoading(true);
-      res = await axios.get(
-        "https://api.hopesdolls.com/api/orders/stts/651ef70de85e857d18c99bf6",
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "anyvalue",
-          },
-        }
-      );
+      const res = await axios.get(URLs.GET_REJECTED_ORDERS, {
+        headers: {
+          "ngrok-skip-browser-warning": "anyvalue",
+        },
+      });
       setData(res.data.response);
-      setLoading(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
+  
   const onDeleteOrder = (id) => {
     if (window.confirm("Are you sure you want to delete Order?")) {
       axios
-        .delete(`https://api.hopesdolls.com/api/orders/${id}`, {
+        .delete(URLs.DELETE_ORDER(id), {
           headers: {
             "ngrok-skip-browser-warning": "anyvalue",
           },
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           toast.success("Order Deleted Successfully");
           getData();
         });

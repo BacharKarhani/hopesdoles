@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./AddCollection.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import URLs from "../../config/urls";
 
 function AddCollection() {
   toast.configure();
@@ -23,7 +24,7 @@ function AddCollection() {
       category_id: state.category_id,
     };
     axios
-      .post(`https://api.hopesdolls.com/api/collections`, data, {
+    .post(URLs.ADD_COLLECTION, data, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -43,7 +44,7 @@ function AddCollection() {
   };
   useEffect(() => {
     axios
-      .get(`https://api.hopesdolls.com/api/categories`, {
+      .get(URLs.CATEGORIES, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },

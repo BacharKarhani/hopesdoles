@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+import URLs from "../../../config/urls";
 
 const EditeCoupon = () => {
   const [data, setData] = useState({});
@@ -23,7 +24,7 @@ const EditeCoupon = () => {
     try {
       if (window.confirm("are you sure you want to edit this coupon?")) {
         axios
-          .put(`https://api.hopesdolls.com/api/coupon/edit/${id}`, data, {
+          .put(URLs.EDIT_COUPON(id), data, {
             headers: {
               "ngrok-skip-browser-warning": "anyvalue",
             },
@@ -37,10 +38,11 @@ const EditeCoupon = () => {
       console.log(err);
     }
   };
+
   const getData = async () => {
     let res;
     try {
-      res = await axios.get(`https://api.hopesdolls.com/api/coupon/${id}`, {
+      res = await axios.get(URLs.GET_COUPON(id), {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -50,12 +52,14 @@ const EditeCoupon = () => {
       console.log(err);
     }
   };
+
   useEffect(() => {
     getData();
   }, [id]);
+
   return (
     <div className="create-container">
-      <h3>Create Coupon</h3>
+      <h3>Edit Coupon</h3>
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Coupon Title"

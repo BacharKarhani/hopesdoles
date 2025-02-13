@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import URLs from "../config/urls";
 
 function UserLogin() {
   const [user, setUsers] = useState({});
@@ -38,7 +39,7 @@ function UserLogin() {
   const loginHandleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`https://api.hopesdolls.com/api/users/login`, userLogin, {
+      .post(URLs.UserLogin, userLogin, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -67,7 +68,7 @@ function UserLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post(`https://api.hopesdolls.com/api/users/signup`, user, {
+      .post(URLs.UserSignup, user, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },

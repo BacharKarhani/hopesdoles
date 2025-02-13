@@ -5,6 +5,7 @@ import Loading from "../components/Loader";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import WhatsApp from "../components/Whatsapp";
+import URLs from "../config/urls";
 
 export default function Story() {
   const [about, setAbout] = useState([]);
@@ -12,7 +13,7 @@ export default function Story() {
 
   useEffect(() => {
     axios
-      .get(`https://api.hopesdolls.com/api/abouts`, {
+      .get(URLs.ABOUTS , {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },

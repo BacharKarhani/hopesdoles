@@ -6,6 +6,8 @@ import Header from "../components/Header";
 import { Store } from "../Store";
 import { toast } from "react-toastify";
 import Footer from "../components/Footer";
+import URLs from "../config/urls";
+
 export default function DollByID() {
   toast.configure();
   let { id } = useParams();
@@ -18,7 +20,6 @@ export default function DollByID() {
 
   useEffect(() => {
     const inLebanon = localStorage.getItem("inLebanon");
-    // console.log("inLebanon:", inLebanon);
     setLb(inLebanon === "true");
   }, []);
 
@@ -27,6 +28,7 @@ export default function DollByID() {
       setUser(true);
     }
   }, [exist]);
+
   const {
     cart: { cartItems },
   } = state;
@@ -35,27 +37,29 @@ export default function DollByID() {
     const existItem = cartItems.find((x) => x._id === doll._id);
     const quantity =
       existItem && doll.quantity === count ? existItem.quantity + 1 : count;
-    const { data } = await axios.get(
-      `https://api.hopesdolls.com/api/products/${item._id}`,
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "anyvalue",
-        },
-      }
-    );
+
+    const { data } = await axios.get(URLs.GET_PRODUCT_BY_ID(item._id), {
+      headers: {
+        "ngrok-skip-browser-warning": "anyvalue",
+      },
+    });
+
     if (data.countInStock < quantity) {
       alert(`This Item has only ${quantity - 1} available items in our stock`);
       return;
     }
+
     dispatch({
       type: "CART_ADD_ITEM",
       payload: { ...item, quantity: count },
     });
+
     toast.success("Added to cart Successfully");
   };
+
   useEffect(() => {
     axios
-      .get(`https://api.hopesdolls.com/api/products/${id}`, {
+      .get(URLs.GET_PRODUCT_BY_ID(id), {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -68,6 +72,7 @@ export default function DollByID() {
         console.log(err);
       });
   }, []);
+
   const handleAdd = () => {
     if (count === doll.quantity) {
       alert(`Only ${count} Of this Item are available`);
@@ -75,6 +80,7 @@ export default function DollByID() {
     }
     setCounter(count + 1);
   };
+
   const handleMinus = () => {
     setCounter(count - 1);
     if (count === 1) {

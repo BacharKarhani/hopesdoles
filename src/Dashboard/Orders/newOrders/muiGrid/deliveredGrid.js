@@ -6,49 +6,35 @@ import { DeleteOutline } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import PreviewIcon from "@mui/icons-material/Preview";
+import URLs from "../../../../config/urls";
 
 const Accepted = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getData = async () => {
-    let res;
     try {
       setLoading(true);
-      res = await axios.get(
-        "https://api.hopesdolls.com/api/orders/stts/651ef6fae85e857d18c99bf5",
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "anyvalue",
-          },
-        }
-      );
+      const res = await axios.get(URLs.GET_ACCEPTED_ORDERS, {
+        headers: { "ngrok-skip-browser-warning": "anyvalue" },
+      });
       setData(res.data.response);
       setLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
+  
   const handleRejected = (id) => {
-    if (window.confirm("Are you sure you want to reject this order")) {
+    if (window.confirm("Are you sure you want to reject this order?")) {
       axios
         .put(
-          `https://api.hopesdolls.com/api/orders/${id}`,
-          {
-            status_id: "639ea279b2742e8ce1894309",
-          },
-          {
-            headers: {
-              "ngrok-skip-browser-warning": "anyvalue",
-            },
-          }
+          URLs.REJECT_ORDER(id),
+          { status_id: "639ea279b2742e8ce1894309" },
+          { headers: { "ngrok-skip-browser-warning": "anyvalue" } }
         )
-        .then((res) => {
-          toast.success(res.data.message);
-        })
-        .catch((err) => {
-          toast.error(err);
-        });
+        .then((res) => toast.success(res.data.message))
+        .catch((err) => toast.error(err));
     }
   };
 

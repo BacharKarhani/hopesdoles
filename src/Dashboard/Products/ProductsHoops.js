@@ -6,6 +6,7 @@ import Pagination from "../../components/Pagination";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../../components/Loader";
+import URLs from "../../config/urls";
 
 export default function ProductsHoops(props) {
   toast.configure();
@@ -21,14 +22,9 @@ export default function ProductsHoops(props) {
 
   const getProductsByPagination = async (page_id = 1) => {
     try {
-      const res = await axios.get(
-        `https://api.hopesdolls.com/api/products/some/${props.id}?page=${page_id}`,
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "anyvalue",
-          },
-        }
-      );
+      const res = await axios.get(URLs.GET_PRODUCTS(props.id, page_id), {
+        headers: { "ngrok-skip-browser-warning": "anyvalue" },
+      });
 
       if (res.data.status === "fail" || res.status === 404) {
         setProducts([]);
@@ -48,14 +44,9 @@ export default function ProductsHoops(props) {
 
   async function getProductById(t_id) {
     try {
-      const res = await axios.get(
-        `https://api.hopesdolls.com/api/products/${t_id}`,
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "anyvalue",
-          },
-        }
-      );
+      const res = await axios.get(URLs.GET_PRODUCT_BY_ID(t_id), {
+        headers: { "ngrok-skip-browser-warning": "anyvalue" },
+      });
       setProductOne(res.data.response);
     } catch (err) {
       console.error(err);
@@ -65,14 +56,9 @@ export default function ProductsHoops(props) {
   async function deleteProductById(t_id) {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        const response = await axios.delete(
-          `https://api.hopesdolls.com/api/products/${t_id}`,
-          {
-            headers: {
-              "ngrok-skip-browser-warning": "anyvalue",
-            },
-          }
-        );
+        await axios.delete(URLs.DELETE_PRODUCT(t_id), {
+          headers: { "ngrok-skip-browser-warning": "anyvalue" },
+        });
         toast.success("Product Deleted Successfully");
         getProductsByPagination();
       } catch (err) {
@@ -115,7 +101,7 @@ export default function ProductsHoops(props) {
 
                       <div className="update">
                         <div className="opacity">
-                          <Link to={"/dashboard/editproduct/" + doll._id}>
+                          <Link to={`/dashboard/editproduct/${doll._id}`}>
                             <button onClick={() => getProductById(doll._id)}>
                               Update
                             </button>

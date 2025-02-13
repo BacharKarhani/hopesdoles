@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../../components/Loader";
 import { color } from "@mui/system";
+import URLs from "../../config/urls";
 
 function Admins() {
   toast.configure();
@@ -18,7 +19,7 @@ function Admins() {
   }, []);
   const getAdmins = async () => {
     await axios
-      .get("https://api.hopesdolls.com/api/admins", {
+      .get(URLs.ADMIN, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -31,29 +32,35 @@ function Admins() {
         console.log(err);
       });
   };
-  const onDeleteAdmin = async (id) => {
-    console.log(id);
-    if (window.confirm("Are you sure you want to delete admin?")) {
-      await axios
-        .delete(`https://api.hopesdolls.com/api/admins/${id}`, {
-          headers: {
-            "ngrok-skip-browser-warning": "anyvalue",
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          toast.success("Admin Deleted Successfully");
-          getAdmins();
-        });
+
+const onDeleteAdmin = async (id) => {
+  console.log(id);
+  if (window.confirm("Are you sure you want to delete this admin?")) {
+    try {
+      const res = await axios.delete(URLs.DELETE_ADMIN(id), {
+        headers: {
+          "ngrok-skip-browser-warning": "anyvalue",
+        },
+      });
+      console.log(res);
+      toast.success("Admin deleted successfully");
+      getAdmins(); // Refresh the admin list
+    } catch (error) {
+      console.error("Error deleting admin:", error);
+      toast.error("Failed to delete admin");
     }
-  };
-  if (loading) {
-    return (
-      <div className="loading_div">
-        <Loading />
-      </div>
-    );
   }
+};
+
+// Loading state handling
+if (loading) {
+  return (
+    <div className="loading_div">
+      <Loading />
+    </div>
+  );
+}
+
 
   return (
     <>

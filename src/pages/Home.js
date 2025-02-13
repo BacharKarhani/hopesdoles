@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import Doll from "../images/Dolls.png";
@@ -14,7 +14,7 @@ import WhatsApp from "../components/Whatsapp";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { useState } from "react";
+import URLs from "../config/urls";
 
 function Home() {
   const newsletter = document.getElementById("newsletter_subscription");
@@ -28,13 +28,14 @@ function Home() {
     let { name, value } = e.target;
     setSubscribers({ ...subscribe, [name]: value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const subscribersData = {
       email: subscribe.email,
     };
     axios
-      .post(`https://api.hopesdolls.com/api/emails`, subscribersData, {
+      .post(URLs.SUBSCRIBE_EMAIL, subscribersData, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -54,6 +55,7 @@ function Home() {
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
   };
+
   return (
     <div>
       <Header />
@@ -67,32 +69,15 @@ function Home() {
           </Link>
         </div>
       </div>
-      {/** Handmade Section */}
+
+      {/* Handmade Section */}
       <section className="handmade">
         <div className="handmade_headings">
           <h2>Mom & I are sewing</h2>
           <p>Handmade Dolls</p>
         </div>
 
-        {/* <div className="handmade_paragraphs">
-          <p>
-            Every Family needs a smart activity to refresh the bonding between
-            them! Filling our dolls is the activity you are looking for.All you
-            need is to fill the doll together without any sewing tool.In this
-            case,your child will believe that he makes the doll by himself
-            <br />
-          </p>
-          <p>
-            The "Bonding" activity has various effects on your child's
-            personality.to know more about the "filling the doll" activity's
-            psycho-effects,please,
-            <Link className="click_here" to={"/filldoll/FillDolls"}>
-              click here.
-            </Link>
-          </p>
-        </div> */}
         <div className="handmade_paragraphs">
-          {/* This is expantion section and this content is added by Omair in order to confirm merge for vercel */}
           <p>
             Every Family needs a smart activity to refresh the bonding between
             them!
@@ -123,8 +108,7 @@ function Home() {
         </div>
       </section>
 
-      {/********** Best Seller Section  ***********/}
-      <div></div>
+      {/* Best Seller Section */}
       <section className="discover">
         <div className="discover_heading">
           <h2>Discover More</h2>

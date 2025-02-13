@@ -6,24 +6,25 @@ import { DeleteOutline } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import PreviewIcon from "@mui/icons-material/Preview";
+import URLs from "../../../../config/urls";
 
 const AllOrders = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getData = async () => {
-    let res;
     try {
       setLoading(true);
-      res = await axios.get("https://api.hopesdolls.com/api/orders/all", {
+      const res = await axios.get(URLs.GET_ALL_ORDERS, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
       });
       setData(res.data);
-      setLoading(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   //   const onDeleteOrder = (id) => {
@@ -35,14 +36,13 @@ const AllOrders = () => {
   //       });
   //     }
   //   };
+  
   const handleRejected = (id) => {
-    if (window.confirm("Are you sure you want to reject this order")) {
+    if (window.confirm("Are you sure you want to reject this order?")) {
       axios
         .put(
-          `https://api.hopesdolls.com/api/orders/${id}`,
-          {
-            status_id: "651ef70de85e857d18c99bf6",
-          },
+          URLs.UPDATE_ORDER_STATUS(id),
+          { status_id: "651ef70de85e857d18c99bf6" },
           {
             headers: {
               "ngrok-skip-browser-warning": "anyvalue",
@@ -51,9 +51,10 @@ const AllOrders = () => {
         )
         .then((res) => {
           toast.success(res.data.message);
+          getData(); // Refresh data after rejection
         })
         .catch((err) => {
-          toast.error(err);
+          toast.error(err.message);
         });
     }
   };

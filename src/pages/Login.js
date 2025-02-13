@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import URLs from "../config/urls";
 
 function Login() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ function Login() {
       password: adminlogin.password,
     };
     axios
-      .post(`https://api.hopesdolls.com/api/admins/login`, data, {
+      .post(URLs.LOGIN, data, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -84,7 +85,7 @@ function Login() {
       phone: admin.phone,
     };
     axios
-      .post(`https://api.hopesdolls.com/api/admins/signup`, adminData, {
+      .post(URLs.ADMINSIGNUP , adminData, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },

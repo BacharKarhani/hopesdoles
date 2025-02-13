@@ -3,6 +3,7 @@ import "./AddAbout.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import URLs from "../../config/urls";
 
 function AddAbout() {
   toast.configure();
@@ -20,7 +21,7 @@ function AddAbout() {
 
   const getData = async () => {
     await axios
-      .get("https://api.hopesdolls.com/api/abouts", {
+      .get(URLs.ABOUTS, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -53,7 +54,7 @@ function AddAbout() {
     formData.append("arabic_paragraph", text?.arabic_paragraph);
 
     axios
-      .post(`https://api.hopesdolls.com/api/abouts`, formData, {
+      .post(`https://aapii.hopesdolls.compi/abouts`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "ngrok-skip-browser-warning": "anyvalue",

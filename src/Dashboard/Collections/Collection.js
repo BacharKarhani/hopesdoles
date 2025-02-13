@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../../components/Loader";
+import URLs from "../../config/urls";
 
 function Collection() {
   const [collection, setCollection] = useState([]);
@@ -15,7 +16,7 @@ function Collection() {
   }, []);
   const getCollections = async () => {
     await axios
-      .get(`https://api.hopesdolls.com/api/collections`, {
+      .get(URLs.COLLECTIONS, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -32,19 +33,23 @@ function Collection() {
   const onDeleteCollection = async (id) => {
     console.log(id);
     if (window.confirm("Are you sure you want to delete Collection?")) {
-      await axios
-        .delete(`https://api.hopesdolls.com/api/collections/${id}`, {
+      try {
+        const response = await axios.delete(URLs.DELETE_COLLECTION(id), {
           headers: {
             "ngrok-skip-browser-warning": "anyvalue",
           },
-        })
-        .then((res) => {
-          console.log(res);
-          toast.success("Collection Deleted Successfully");
-          getCollections();
         });
+  
+        console.log(response);
+        toast.success("Collection Deleted Successfully");
+        getCollections(); // Refresh collection list
+      } catch (error) {
+        console.error("Error while deleting collection:", error);
+        toast.error("Error While Deleting Collection");
+      }
     }
   };
+  
   if (loading) {
     return (
       <div className="loading_div">

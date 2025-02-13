@@ -3,7 +3,7 @@ import "./AddProduct.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import URLs from "../../../src/config/urls";
 function AddProducts(props) {
   toast.configure();
 
@@ -11,7 +11,7 @@ function AddProducts(props) {
   const [collection, SetCollection] = useState([]);
   const getCollections = async () => {
     await axios
-      .get(`https://api.hopesdolls.com/api/collections`, {
+      .get(URLs.COLLECTIONS, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -26,7 +26,7 @@ function AddProducts(props) {
   };
   const getCategs = async () => {
     await axios
-      .get("https://api.hopesdolls.com/api/categories", {
+      .get(URLs.CATEGORIES, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -79,7 +79,7 @@ function AddProducts(props) {
     formData.append("isBestSeller", state.isBestSeller);
 
     axios
-      .post(`https://api.hopesdolls.com/api/products`, formData, {
+      .post(URLs.ADD_PRODUCT, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "ngrok-skip-browser-warning": "asdasd",

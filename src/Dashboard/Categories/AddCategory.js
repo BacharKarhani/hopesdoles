@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./AddCategory.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import URLs from "../../config/urls";
 
 function AddCategory() {
   toast.configure();
@@ -21,7 +22,7 @@ function AddCategory() {
       name: state.name,
     };
     axios
-      .post(`https://api.hopesdolls.com/api/categories`, data, {
+      .post(URLs.CATEGORIES , data, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },

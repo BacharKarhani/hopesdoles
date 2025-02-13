@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../../components/Loader";
+import URLs from "../../config/urls";
 function Categories() {
   toast.configure();
   const [category, setCategory] = useState([]);
@@ -14,7 +15,7 @@ function Categories() {
   }, []);
   const getCategories = async () => {
     await axios
-      .get(`https://api.hopesdolls.com/api/categories`, {
+      .get(URLs.CATEGORIES, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -32,19 +33,23 @@ function Categories() {
   const onDeleteCategory = async (id) => {
     console.log(id);
     if (window.confirm("Are you sure you want to delete Category?")) {
-      await axios
-        .delete(`https://api.hopesdolls.com/api/categories/${id}`, {
+      try {
+        const res = await axios.delete(URLs.DELETE_CATEGORY(id), {
           headers: {
             "ngrok-skip-browser-warning": "anyvalue",
           },
-        })
-        .then((res) => {
-          console.log(res);
-          toast.success("Category Deleted Successfully");
-          getCategories();
         });
+  
+        console.log(res);
+        toast.success("Category Deleted Successfully");
+        getCategories();
+      } catch (error) {
+        console.error("Error deleting category:", error);
+        toast.error("Error While Deleting Category");
+      }
     }
   };
+
   if (loading) {
     return (
       <div className="loading_div">
@@ -52,6 +57,7 @@ function Categories() {
       </div>
     );
   }
+  
   return (
     <>
       <div className="category_table">

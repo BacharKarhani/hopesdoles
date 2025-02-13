@@ -4,15 +4,15 @@ import { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./ViewOrder.css";
+import URLs from "../../config/urls";
 
 function ViewOrder() {
   const { id } = useParams();
   const [order, setOrders] = useState([]);
   const [statuses, setStatuses] = useState("");
-  const [loading, setLoading] = useState("false");
+  const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState([]);
   const [status, setStatus] = useState("");
-  // const [status_id, setStatusId] = useState({});
 
   useEffect(() => {
     getData();
@@ -24,14 +24,10 @@ function ViewOrder() {
     e.preventDefault();
     axios
       .put(
-        `https://api.hopesdolls.com/api/orders/${id}`,
+        URLs.UPDATE_ORDER_STATUS(id),
+        { status_id: status },
         {
-          status_id: status,
-        },
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "anyvalue",
-          },
+          headers: { "ngrok-skip-browser-warning": "anyvalue" },
         }
       )
       .then((res) => {
@@ -39,28 +35,23 @@ function ViewOrder() {
         console.log(res.data);
       })
       .catch((err) => {
-        toast.error(err);
+        toast.error("Failed to update status");
         console.log(err);
       });
   };
+
   const getData = async () => {
     try {
       setLoading(true);
       if (id) {
-        let res = await axios.get(
-          `https://api.hopesdolls.com/api/orders/${id}`,
-          {
-            headers: {
-              "ngrok-skip-browser-warning": "anyvalue",
-            },
-          }
-        );
+        let res = await axios.get(URLs.GET_ORDER(id), {
+          headers: { "ngrok-skip-browser-warning": "anyvalue" },
+        });
         setOrders(res.data);
-        console.log(res.data);
         setProduct(res.data.product_id);
         setStatus(res.data.status_id._id);
-        setLoading(false);
       }
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -72,14 +63,9 @@ function ViewOrder() {
 
   const getStatus = async () => {
     try {
-      let res = await axios.get(
-        "https://api.hopesdolls.com/api/orderStatuses",
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "anyvalue",
-          },
-        }
-      );
+      let res = await axios.get(URLs.GET_ORDER_STATUSES, {
+        headers: { "ngrok-skip-browser-warning": "anyvalue" },
+      });
       setStatuses(res.data.response);
     } catch (err) {
       console.log(err);
@@ -96,24 +82,12 @@ function ViewOrder() {
               <p className="data">Client Name: {order.client_id.name}</p>
               <p className="data">Client Email: {order.client_id.email}</p>
               <p className="data">Client Phone: {order.client_id.phone}</p>
-              <p className="data">
-                Client Region: {order.client_id.address?.region}
-              </p>
-              <p className="data">
-                Client District: {order.client_id.address?.district}
-              </p>
-              <p className="data">
-                Client City: {order.client_id.address?.city}
-              </p>
-              <p className="data">
-                Client Street: {order.client_id.address?.street}
-              </p>
-              <p className="data">
-                Client Building: {order.client_id.address?.building}
-              </p>
-              <p className="data">
-                Client Floor: {order.client_id.address?.floor}
-              </p>
+              <p className="data">Client Region: {order.client_id.address?.region}</p>
+              <p className="data">Client District: {order.client_id.address?.district}</p>
+              <p className="data">Client City: {order.client_id.address?.city}</p>
+              <p className="data">Client Street: {order.client_id.address?.street}</p>
+              <p className="data">Client Building: {order.client_id.address?.building}</p>
+              <p className="data">Client Floor: {order.client_id.address?.floor}</p>
               <p className="data">Currency : {order.currency_id?.rate}</p>
               <p className="data">Total Price: {order.totalPrice}</p>
             </div>
@@ -121,24 +95,19 @@ function ViewOrder() {
               <FormControl sx={{ m: 1, maxWidth: 300 }}>
                 <Select
                   onChange={(e) => {
-                    const selected = e.target.value;
-                    setStatus(selected);
+                    setStatus(e.target.value);
                     fnStatus();
                   }}
                   value={status}
-                  sx={{
-                    width: 250,
-                  }}
+                  sx={{ width: 250 }}
                 >
-                  {statuses.map((status, key) => {
-                    return (
-                      <MenuItem value={status._id} key={key}>
-                        {status.type}
-                      </MenuItem>
-                    );
-                  })}
+                  {statuses.map((status, key) => (
+                    <MenuItem value={status._id} key={key}>
+                      {status.type}
+                    </MenuItem>
+                  ))}
                 </Select>
-                <button onSubmit={handleSubmit}>Edit Status</button>
+                <button type="submit">Edit Status</button>
               </FormControl>
             </form>
             {order.product_id.map((each, key) => {
@@ -163,7 +132,7 @@ function ViewOrder() {
                         console.log(img);
                         return (
                           <img
-                            src={`https://api.hopesdolls.com/images/${img}`}
+                            src={`https://apiapi.hopesdolls.comges/${img}`}
                             alt="product"
                           />
                         );

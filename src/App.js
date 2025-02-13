@@ -19,6 +19,7 @@ import Cart from "./pages/Cart/Cart";
 import Settings from "./pages/Settings/Settings";
 import axios from "axios";
 import Flag from "react-world-flags";
+import URLs from "./config/urls.js";
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -131,7 +132,7 @@ function App() {
 
   const getCategories = async () => {
     try {
-      let res = await axios.get("https://api.hopesdolls.com/api/categories", {
+      let res = await axios.get(URLs.CATEGORIES, {
         headers: { "ngrok-skip-browser-warning": "asda" },
       });
       setCategories(res.data);

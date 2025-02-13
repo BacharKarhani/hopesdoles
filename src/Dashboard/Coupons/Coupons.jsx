@@ -8,15 +8,16 @@ import { DeleteOutline } from "@mui/icons-material";
 import ManageHistorySharpIcon from "@mui/icons-material/ManageHistorySharp";
 import { toast } from "react-toastify";
 import { Typography } from "@mui/material";
+import URLs from "../../config/urls";
 
 const Coupons = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const getData = async () => {
-    let res;
     try {
       setLoading(true);
-      res = await axios.get("https://api.hopesdolls.com/api/coupon", {
+      const res = await axios.get(URLs.COUPONS, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
@@ -25,20 +26,25 @@ const Coupons = () => {
       setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
+
   const onDeleteOrder = (id) => {
-    if (window.confirm("Are you sure you want to delete Coupon?")) {
+    if (window.confirm("Are you sure you want to delete this coupon?")) {
       axios
-        .delete(`https://api.hopesdolls.com/api/coupon/delete/${id}`, {
+        .delete(URLs.DELETE_COUPON(id), {
           headers: {
             "ngrok-skip-browser-warning": "anyvalue",
           },
         })
-        .then((res) => {
-          console.log(res);
-          toast.success("Coupons Deleted Successfully");
+        .then(() => {
+          toast.success("Coupon deleted successfully");
           getData();
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Failed to delete coupon");
         });
     }
   };
@@ -46,61 +52,54 @@ const Coupons = () => {
   useEffect(() => {
     getData();
   }, []);
+
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     {
       field: "title",
       headerName: "Coupon Title",
       width: 120,
-      editable: false,
     },
     {
       field: "client_id",
-      headerName: "Client name",
+      headerName: "Client Name",
       width: 150,
-      editable: false,
     },
     {
       field: "amount",
-      headerName: "Coupon Amount in %",
+      headerName: "Coupon Amount (%)",
       width: 200,
-      editable: false,
     },
     {
       field: "action",
       headerName: "Actions",
       width: 140,
-      renderCell: (params) => {
-        return (
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Link to={"/dashboard/viewcoupon/" + params.row._id}>
-              <ManageHistorySharpIcon />
-            </Link>
-            <DeleteOutline
-              sx={{ color: "red", cursor: "pointer" }}
-              onClick={() => {
-                onDeleteOrder(params.row._id);
-              }}
-            />
-          </div>
-        );
-      },
+      renderCell: (params) => (
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Link to={`/dashboard/viewcoupon/${params.row._id}`}>
+            <ManageHistorySharpIcon />
+          </Link>
+          <DeleteOutline
+            sx={{ color: "red", cursor: "pointer" }}
+            onClick={() => onDeleteOrder(params.row._id)}
+          />
+        </div>
+      ),
     },
   ];
+
   return (
     <div className="table-container">
-      {/* <DataGrid /> */}
-
       <Typography>
         <Link to="add" style={{ textDecoration: "none" }}>
-          Add Coupons
+          Add Coupon
         </Link>
       </Typography>
 
@@ -114,8 +113,7 @@ const Coupons = () => {
           pageSize={8}
           rowsPerPageOptions={[8]}
           checkboxSelection={false}
-          disableSelectionOnClick={true}
-          experimentalFeatures={{ newEditingApi: true }}
+          disableSelectionOnClick
         />
       </Box>
     </div>
