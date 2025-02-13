@@ -6,7 +6,7 @@
 }
 .loading_div{
   min-height: 300px;
-  background-color: #fcf4e7;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
