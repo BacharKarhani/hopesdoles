@@ -33,7 +33,7 @@ const AllOrders = () => {
       axios
         .put(
           URLs.UPDATE_ORDER_STATUS(id),
-          { status_id: "651ef70de85e857d18c99bf6" },
+          { status_id: "67ae2c7496e55b10382175fd" },
           {
             headers: {
               "ngrok-skip-browser-warning": "anyvalue",

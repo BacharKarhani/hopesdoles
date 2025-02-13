@@ -20,12 +20,36 @@ const Pending = () => {
           "ngrok-skip-browser-warning": "anyvalue",
         },
       });
-      setData(res.data.response);
+  
+      // Assuming you have access to status types in a separate API or it's stored in the `response`
+      const statusTypes = [
+        {
+          _id: "67ae2c7496e55b10382175fd",
+          type: "Rejected",
+        },
+        {
+          _id: "67ae2d5e96e55b103821761a",
+          type: "Accepted",
+        },
+        {
+          _id: "67ae2d6c96e55b1038217622",
+          type: "Pending",
+        },
+      ];
+  
+      // Mapping the status to each order based on status_id
+      const updatedData = res.data.response.map(order => {
+        const status = statusTypes.find(status => status._id === order.status_id);
+        return { ...order, status_id: status };
+      });
+  
+      setData(updatedData);
       setLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   const handleRejected = (id) => {
     if (window.confirm("Are you sure you want to reject this order")) {
@@ -33,7 +57,7 @@ const Pending = () => {
         .put(
           URLs.REJECT_ORDER(id),
           {
-            status_id: "639ea279b2742e8ce1894309",
+            status_id: "67ae2c7496e55b10382175fd",
           },
           {
             headers: {
@@ -57,36 +81,60 @@ const Pending = () => {
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     {
-      field: "client_id",
+      field: "user_info.name",
       headerName: "Client Name",
       width: 150,
       editable: false,
       renderCell: (params) => {
-        return params.row.client_id?.name || "N/A";
+        return params.row.user_info ? params.row.user_info.name : "-";
       },
     },
     {
-      field: "email",
+      field: "user_info.email",
       headerName: "Email",
+      width: 200,
+      editable: false,
+      renderCell: (params) => {
+        return params.row.user_info ? params.row.user_info.email : "-";
+      },
+    },
+    {
+      field: "user_info.phone", // assuming phone is available in user_info
+      headerName: "Phone Number",
+      width: 150,
+      editable: false,
+      renderCell: (params) => {
+        return params.row.user_info && params.row.user_info.phone
+          ? params.row.user_info.phone
+          : "-";
+      },
+    },
+    {
+      field: "user_info.address.street",
+      headerName: "Street Address",
       width: 180,
       editable: false,
       renderCell: (params) => {
-        return params.row.user_info?.email || "N/A";
+        return params.row.user_info && params.row.user_info.address
+          ? params.row.user_info.address.street
+          : "-";
       },
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
-      width: 160,
+      field: "user_info.address.city",
+      headerName: "City",
+      width: 130,
       editable: false,
       renderCell: (params) => {
-        return params.row.user_info?.phone || "N/A";
+        return params.row.user_info && params.row.user_info.address
+          ? params.row.user_info.address.city
+          : "-";
       },
     },
     {
       field: "payment_type",
       headerName: "Payment Type",
-      width: 120,
+      width: 150,
       editable: false,
     },
     {
@@ -98,13 +146,22 @@ const Pending = () => {
     {
       field: "totalPrice",
       headerName: "Total Price",
-      width: 110,
+      width: 130,
       editable: false,
     },
     {
+      field: "status_id",
+      headerName: "Status",
+      width: 130,
+      editable: false,
+      renderCell: (params) => {
+        return params.row.status_id.type ? params.row.status_id.type : "-";
+      },
+    },    
+    {
       field: "action",
       headerName: "Actions",
-      width: 140,
+      width: 150,
       renderCell: (params) => {
         return (
           <div

@@ -86,9 +86,9 @@ function ViewOrder() {
             <p className="data">Client Number: {order.user_info?.phone}</p>
             <p className="data">Client Address: {order.user_info?.address?.street}, {order.user_info?.address?.city}, {order.user_info?.address?.state}, {order.user_info?.address?.zip}, {order.user_info?.address?.country}</p>
             <p className="data">Payment Type: {order.payment_type}</p>
-            <p className="data">Total Price: {order.totalPrice}</p>
-            <p className="data">Created At: {new Date(order.createdAt).toLocaleString()}</p>
-            <p className="data">Updated At: {new Date(order.updatedAt).toLocaleString()}</p>
+            <p className="data">Total Price: {order.totalPrice} $</p>
+            <p className="data">Order Request Time: {new Date(order.createdAt).toLocaleString()}</p>
+            {/* <p className="data">Updated At: {new Date(order.updatedAt).toLocaleString()}</p> */}
           </div>
           
           <form onSubmit={handleSubmit}>
@@ -117,15 +117,15 @@ function ViewOrder() {
                 <h2 className="product_title">Product {key + 1}</h2>
                 <div className="product_details">
                   <p className="data">Product Name: {each.name}</p>
-                  <p className="data">Product Price: {each.price}</p>
-                  <p className="data">Is Best Seller: {each.is_best_seller ? 'Yes' : 'No'}</p>
+                  {/* <p className="data">Product Price: {each.price}</p>
+                  <p className="data">Is Best Seller: {each.is_best_seller ? 'Yes' : 'No'}</p> */}
                   {/* Add other product details as needed */}
                 </div>
                 <div className="product_details_images">
                   {each.image && each.image.map((img, imgIndex) => (
                     <img
                       key={imgIndex}
-                      src={`https://apiapi.hopesdolls.comges/${img}`}
+                      src={`https://api.hopesdolls.com/images/${img}`}
                       alt={`product-image-${imgIndex}`}
                     />
                   ))}

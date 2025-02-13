@@ -49,37 +49,60 @@ const Rejected = () => {
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     {
-      field: "client_id",
-      headerName: "Client name",
+      field: "user_info.name",
+      headerName: "Client Name",
       width: 150,
       editable: false,
       renderCell: (params) => {
-        console.log(params);
-        return params.row.client_id?.name;
+        return params.row.user_info ? params.row.user_info.name : "-";
       },
     },
     {
-      field: "currency_id",
-      headerName: "Currency",
+      field: "user_info.email",
+      headerName: "Email",
+      width: 200,
+      editable: false,
+      renderCell: (params) => {
+        return params.row.user_info ? params.row.user_info.email : "-";
+      },
+    },
+    {
+      field: "user_info.phone", // assuming phone is available in user_info
+      headerName: "Phone Number",
       width: 150,
       editable: false,
       renderCell: (params) => {
-        return params.row.currency_id ? params.row.currency_id.rate : "auto";
+        return params.row.user_info && params.row.user_info.phone
+          ? params.row.user_info.phone
+          : "-";
       },
     },
     {
-      field: "product_id",
-      headerName: "Number of products",
-      width: 160,
+      field: "user_info.address.street",
+      headerName: "Street Address",
+      width: 180,
       editable: false,
       renderCell: (params) => {
-        return params.row.product_id.length;
+        return params.row.user_info && params.row.user_info.address
+          ? params.row.user_info.address.street
+          : "-";
+      },
+    },
+    {
+      field: "user_info.address.city",
+      headerName: "City",
+      width: 130,
+      editable: false,
+      renderCell: (params) => {
+        return params.row.user_info && params.row.user_info.address
+          ? params.row.user_info.address.city
+          : "-";
       },
     },
     {
       field: "payment_type",
       headerName: "Payment Type",
-      width: 110,
+      width: 150,
       editable: false,
     },
     {
@@ -91,13 +114,14 @@ const Rejected = () => {
     {
       field: "totalPrice",
       headerName: "Total Price",
-      width: 110,
+      width: 130,
       editable: false,
     },
+
     {
       field: "action",
       headerName: "Actions",
-      width: 140,
+      width: 150,
       renderCell: (params) => {
         return (
           <div

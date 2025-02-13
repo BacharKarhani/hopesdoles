@@ -16,7 +16,7 @@ const Checkout = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
-    phone: "", // Added phone number to the data state
+    phone: "",
     street: "",
     city: "",
     state: "",
@@ -33,7 +33,6 @@ const Checkout = () => {
   const { cart: { cartItems } } = state;
 
   useEffect(() => {
-    // Use a Set to ensure unique product IDs in the `ids` array
     const uniqueIds = [...new Set(cartItems.map((cart) => cart._id))];
     setIds(uniqueIds);
   }, [cartItems]);
@@ -95,6 +94,7 @@ const Checkout = () => {
         payment_type: "cash on delivery",
         quantity: totalQuantity,
         totalPrice: finalTotalPrice, // Including delivery fee
+        status_id : "67ae2d6c96e55b1038217622",
       });
   
       toast.success("Your order has been placed successfully!");
@@ -117,9 +117,8 @@ const Checkout = () => {
             handleChange={handleInputChange}
             addr={addr}
             lb={lb}
-            data={data} // Passing the user data to Address component
+            data={data} 
           />
-          {/* Wrap the submit button inside a form to trigger only once */}
           <form onSubmit={handleSubmit}>
             <button
               type="submit"
