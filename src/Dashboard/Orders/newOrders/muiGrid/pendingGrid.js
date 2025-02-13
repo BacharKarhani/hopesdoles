@@ -15,26 +15,23 @@ const Pending = () => {
   const getData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(URLs.GET_ORDER_STATUSES, {
+      const res = await axios.get(URLs.GET_PENDING_ORDERS, {
         headers: {
           "ngrok-skip-browser-warning": "anyvalue",
         },
       });
       setData(res.data.response);
-      console.log("====================================");
-      console.log(res.data.response);
-      console.log("====================================");
       setLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
+
   const handleRejected = (id) => {
     if (window.confirm("Are you sure you want to reject this order")) {
       axios
         .put(
           URLs.REJECT_ORDER(id),
-
           {
             status_id: "639ea279b2742e8ce1894309",
           },
@@ -56,40 +53,40 @@ const Pending = () => {
   useEffect(() => {
     getData();
   }, []);
+
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     {
       field: "client_id",
-      headerName: "Client name",
+      headerName: "Client Name",
       width: 150,
       editable: false,
       renderCell: (params) => {
-        console.log(params);
-        return params.row.client_id?.name;
+        return params.row.client_id?.name || "N/A";
       },
     },
     {
-      field: "currency_id",
-      headerName: "Currency",
-      width: 150,
+      field: "email",
+      headerName: "Email",
+      width: 180,
       editable: false,
       renderCell: (params) => {
-        return params.row.currency_id ? params.row.currency_id.rate : "auto";
+        return params.row.user_info?.email || "N/A";
       },
     },
     {
-      field: "product_id",
-      headerName: "Number of products",
+      field: "phone",
+      headerName: "Phone Number",
       width: 160,
       editable: false,
       renderCell: (params) => {
-        return params.row.product_id.length;
+        return params.row.user_info?.phone || "N/A";
       },
     },
     {
       field: "payment_type",
       headerName: "Payment Type",
-      width: 110,
+      width: 120,
       editable: false,
     },
     {

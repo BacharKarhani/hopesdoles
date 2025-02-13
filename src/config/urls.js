@@ -26,6 +26,7 @@ const URLs = {
   GET_ORDER: (id) => `${BASE_URL}/orders/${id}`,
   UPDATE_ORDER_STATUS: (id) => `${BASE_URL}/orders/${id}`,
   GET_ORDER_STATUSES: `${BASE_URL}/orderStatuses`,
+  GET_PENDING_ORDERS: `${BASE_URL}/orders/stts/651ef659e85e857d18c99bf4`,
   GET_REJECTED_ORDERS: `${BASE_URL}/orders/stts/651ef70de85e857d18c99bf6`,
   DELETE_ORDER: (id) => `${BASE_URL}/orders/${id}`,
   GET_ALL_ORDERS: `${BASE_URL}/orders/all`,

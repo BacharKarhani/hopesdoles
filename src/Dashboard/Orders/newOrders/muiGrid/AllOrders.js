@@ -20,23 +20,14 @@ const AllOrders = () => {
           "ngrok-skip-browser-warning": "anyvalue",
         },
       });
-      setData(res.data);
+      setData(res.data); // Assuming this is an array of orders
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
-  //   const onDeleteOrder = (id) => {
-  //     if (window.confirm("Are you sure you want to delete Order?")) {
-  //       axios.delete(`https://api.hopesdolls.com/api/orders/${id}`).then((res) => {
-  //         console.log(res);
-  //         toast.success("Order Deleted Successfully");
-  //         getData();
-  //       });
-  //     }
-  //   };
-  
+
   const handleRejected = (id) => {
     if (window.confirm("Are you sure you want to reject this order?")) {
       axios
@@ -62,40 +53,64 @@ const AllOrders = () => {
   useEffect(() => {
     getData();
   }, []);
+
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     {
-      field: "client_id",
-      headerName: "Client name",
+      field: "user_info.name",
+      headerName: "Client Name",
       width: 150,
       editable: false,
       renderCell: (params) => {
-        console.log(params);
-        return params.row.client_id?.name;
+        return params.row.user_info ? params.row.user_info.name : "-";
       },
     },
     {
-      field: "currency_id",
-      headerName: "Currency",
+      field: "user_info.email",
+      headerName: "Email",
+      width: 200,
+      editable: false,
+      renderCell: (params) => {
+        return params.row.user_info ? params.row.user_info.email : "-";
+      },
+    },
+    {
+      field: "user_info.phone", // assuming phone is available in user_info
+      headerName: "Phone Number",
       width: 150,
       editable: false,
       renderCell: (params) => {
-        return params.row.currency_id ? params.row.currency_id.rate : "$";
+        return params.row.user_info && params.row.user_info.phone
+          ? params.row.user_info.phone
+          : "-";
       },
     },
-    // {
-    //   field: "product_id",
-    //   headerName: "Number of products",
-    //   width: 160,
-    //   editable: false,
-    //   renderCell: (params) => {
-    //     return params.row.product_id.length;
-    //   },
-    // },
+    {
+      field: "user_info.address.street",
+      headerName: "Street Address",
+      width: 180,
+      editable: false,
+      renderCell: (params) => {
+        return params.row.user_info && params.row.user_info.address
+          ? params.row.user_info.address.street
+          : "-";
+      },
+    },
+    {
+      field: "user_info.address.city",
+      headerName: "City",
+      width: 130,
+      editable: false,
+      renderCell: (params) => {
+        return params.row.user_info && params.row.user_info.address
+          ? params.row.user_info.address.city
+          : "-";
+      },
+    },
     {
       field: "payment_type",
       headerName: "Payment Type",
-      width: 110,
+      width: 150,
       editable: false,
     },
     {
@@ -107,13 +122,22 @@ const AllOrders = () => {
     {
       field: "totalPrice",
       headerName: "Total Price",
-      width: 110,
+      width: 130,
       editable: false,
+    },
+    {
+      field: "status_id.type",
+      headerName: "Status",
+      width: 130,
+      editable: false,
+      renderCell: (params) => {
+        return params.row.status_id ? params.row.status_id.type : "-";
+      },
     },
     {
       field: "action",
       headerName: "Actions",
-      width: 140,
+      width: 150,
       renderCell: (params) => {
         return (
           <div
