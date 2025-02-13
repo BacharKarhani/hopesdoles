@@ -10,7 +10,7 @@ export default function whatsapp() {
         href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
       ></link>
       <a
-        href="https://wa.me/96171949589"
+        href="https://wa.me/96179318276"
         className="whatsapp_float"
         target="_blank"
         rel="noopener noreferrer"
