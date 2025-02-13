@@ -9,8 +9,15 @@
   padding: 20px;
   box-sizing: border-box;
 }
+.checkout-container form {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
 .submit-btn {
+  display: block;
+  margin: 20px auto; /* Auto margins center it inside the form */
   background-color: #faaf3e;
   color: white;
   padding: 12px 24px;
@@ -18,10 +25,11 @@
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  width: 60%; /* Make the button a bit smaller than full width */
-  max-width: 300px; /* Set a max width for the button */
-  margin-top: 20px;
+  width: 60%; /* Button width */
+  max-width: 300px;
+  text-align: center; /* Center text inside button */
 }
+
 
 .submit-btn:hover {
   background-color: white;

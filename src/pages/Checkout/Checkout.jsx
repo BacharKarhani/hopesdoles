@@ -16,6 +16,7 @@ const Checkout = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
+    phone: "", // Added phone number to the data state
     street: "",
     city: "",
     state: "",
@@ -29,14 +30,12 @@ const Checkout = () => {
 
   const Navigate = useNavigate();
 
-  // Mock cart items for now
   const { cart: { cartItems } } = state;
 
-
   useEffect(() => {
-    cartItems.forEach((cart) => {
-      setIds((prevIds) => [...prevIds, cart._id]);
-    });
+    // Use a Set to ensure unique product IDs in the `ids` array
+    const uniqueIds = [...new Set(cartItems.map((cart) => cart._id))];
+    setIds(uniqueIds);
   }, [cartItems]);
 
   useEffect(() => {
@@ -71,11 +70,20 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const baseTotalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  
+    // Check local storage for "inLebanon" value
+    const isInLebanon = localStorage.getItem("inLebanon") === "true";
+    const deliveryFee = isInLebanon ? 3 : 8;
+    const finalTotalPrice = baseTotalPrice + deliveryFee;
+  
     try {
-      // Send address and user data to your server
       await axios.post(URLs.SUBMIT_ORDER(), {
         name: data.name,
         email: data.email,
+        phone: data.phone,
         address: {
           street: data.street,
           city: data.city,
@@ -85,17 +93,18 @@ const Checkout = () => {
         },
         product_id: ids,
         payment_type: "cash on delivery",
-        quantity: 1,
-        totalPrice: cartItems.reduce((a, c) => a + c.price * c.quantity, 0), // Replace with actual total
+        quantity: totalQuantity,
+        totalPrice: finalTotalPrice, // Including delivery fee
       });
-
+  
       toast.success("Your order has been placed successfully!");
-      Navigate("/"); // Redirect to home or another page
+      Navigate("/");
     } catch (err) {
       console.error(err);
       toast.error("Something went wrong, please try again or contact us.");
     }
   };
+  
 
   return (
     <>
@@ -110,14 +119,15 @@ const Checkout = () => {
             lb={lb}
             data={data} // Passing the user data to Address component
           />
-          {/* Submit button */}
-          <button
-            type="button"
-            className="submit-btn"
-            onClick={handleSubmit}
-          >
-            Submit Order
-          </button>
+          {/* Wrap the submit button inside a form to trigger only once */}
+          <form onSubmit={handleSubmit}>
+            <button
+              type="submit"
+              className="submit-btn"
+            >
+              Submit Order
+            </button>
+          </form>
         </Box>
       </div>
     </>

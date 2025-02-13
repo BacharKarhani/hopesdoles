@@ -14,13 +14,11 @@ const Address = ({ handleSubmit, handleChange, lb, data }) => {
   } = state;
 
   useEffect(() => {
-    // You can handle logic to fetch or use user data as needed.
     setId(data.name);
   }, [data]);
 
   const getAddress = async () => {
     try {
-      // Make API call if needed to fetch the address or manage
       setAddress(data);
       if (
         data.street &&
@@ -29,7 +27,7 @@ const Address = ({ handleSubmit, handleChange, lb, data }) => {
         data.zip &&
         data.country
       ) {
-        localStorage.setItem("addr", JSON.stringify(data)); // Saving to local storage
+        localStorage.setItem("addr", JSON.stringify(data));
       }
     } catch (err) {
       console.log(err);
@@ -39,6 +37,8 @@ const Address = ({ handleSubmit, handleChange, lb, data }) => {
   useEffect(() => {
     getAddress();
   }, [data]);
+
+  const isInLebanon = JSON.parse(localStorage.getItem("inLebanon"));
 
   return (
     <>
@@ -61,6 +61,16 @@ const Address = ({ handleSubmit, handleChange, lb, data }) => {
             name="email"
             onChange={handleChange}
             value={data.email}
+            required
+          />
+        </div>
+        <div>
+          <input
+            placeholder="Phone"
+            type="text"
+            name="phone"
+            onChange={handleChange}
+            value={data.phone}
             required
           />
         </div>
@@ -94,16 +104,21 @@ const Address = ({ handleSubmit, handleChange, lb, data }) => {
             required
           />
         </div>
-        <div>
-          <input
-            placeholder="Zip"
-            type="text"
-            name="zip"
-            onChange={handleChange}
-            value={data.zip}
-            required
-          />
-        </div>
+        
+        {/* Conditionally render Zip field based on inLebanon flag */}
+        {!isInLebanon && (
+          <div>
+            <input
+              placeholder="Zip"
+              type="text"
+              name="zip"
+              onChange={handleChange}
+              value={data.zip}
+              required
+            />
+          </div>
+        )}
+
         <div>
           <input
             placeholder="Country"
@@ -118,9 +133,7 @@ const Address = ({ handleSubmit, handleChange, lb, data }) => {
         <div>
           {!lb ? (
             <PaypalPayment
-              amount={data
-                ? cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
-                : cartItems.reduce((a, c) => a + c.priceOutside * c.quantity, 0)}
+              amount={cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
             />
           ) : (
             <button type="submit">Proceed to Checkout</button>
