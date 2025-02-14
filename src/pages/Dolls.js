@@ -47,7 +47,12 @@ export default function Dolls(props) {
   const getproducts = async () => {
     try {
       let res = await axios.get(
-        `${URLs.GET_PRODUCTS(props.id)}&sort=${sortProduct}` // Remove ngrok header
+        `${URLs.GET_PRODUCTS(props.id)}&sort=${sortProduct}`,  // Using the new URL constant
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "anyvalue",
+          },
+        }
       );
       setProducts(res.data.data);
       setTotalPages(res.data.pages);
@@ -56,11 +61,17 @@ export default function Dolls(props) {
       console.log(err);
     }
   };
-  
+
+  // Adjusted getproductsByPagination function to include sorting using the new URL
   const getproductsByPagination = async (page_id) => {
     try {
       let res = await axios.get(
-        `${URLs.GET_PRODUCTS(props.id, page_id, sortProduct)}` // Remove ngrok header
+        `${URLs.GET_PRODUCTS(props.id, page_id, sortProduct)}`, // Using the new URL constant
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "anyvalue",
+          },
+        }
       );
       setProducts(res.data.data);
       setTotalPages(res.data.pages);
@@ -69,10 +80,16 @@ export default function Dolls(props) {
       console.log(err);
     }
   };
-  
+
+  // Fetch collections using the new URL constant
   const getCollections = async () => {
     let res = await axios.get(
-      `${URLs.GET_COLLECTION_BY_ID(props.id)}`  // Remove ngrok header
+      `${URLs.GET_COLLECTION_BY_ID(props.id)}`,  // Using the new URL constant
+      {
+        headers: {
+          "ngrok-skip-browser-warning": "anyvalue",
+        },
+      }
     );
     try {
       setCollection(res.data);
@@ -81,12 +98,18 @@ export default function Dolls(props) {
       console.log("err ", err);
     }
   };
-  
+
+  // Fetch collections by selected filter using the new URL constant
   const getCollectionsApi = async () => {
     const body = { collection: isChecked };
     let res = await axios.post(
-      `${URLs.GET_PRODUCTS(props.id)}/ByCollecction`,  // Remove ngrok header
-      body
+      `${URLs.GET_PRODUCTS(props.id)}/ByCollecction`,  // Using the new URL constant
+      body,
+      {
+        headers: {
+          "ngrok-skip-browser-warning": "anyvalue",
+        },
+      }
     );
     try {
       setProducts(res.data.data);
@@ -96,7 +119,6 @@ export default function Dolls(props) {
       console.log("err ", err);
     }
   };
-  
 
   const handleOnChange = (e, name) => {
     const value = e.target.checked;
