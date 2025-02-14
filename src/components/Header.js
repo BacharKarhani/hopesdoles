@@ -54,7 +54,8 @@ export default function Header() {
               href="/"
               rel="noopener noreferrer"
             >
-              <img src={logo} width={80} height={50} alt="Logo" />
+
+              <img src={logo} width={122} height={130} alt="Logo" />
             </a>
           </div>
 
