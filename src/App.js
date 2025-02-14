@@ -132,9 +132,7 @@ function App() {
 
   const getCategories = async () => {
     try {
-      let res = await axios.get(URLs.CATEGORIES, {
-        headers: { "ngrok-skip-browser-warning": "asda" },
-      });
+      let res = await axios.get(URLs.CATEGORIES);
       setCategories(res.data);
     } catch (err) {
       console.log(err);
@@ -142,6 +140,7 @@ function App() {
       setLoading(false);
     }
   };
+  
 
   const checkUser = () => {
     setUser(localStorage.getItem("user") !== null);
