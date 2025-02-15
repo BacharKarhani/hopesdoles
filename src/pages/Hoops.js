@@ -200,12 +200,13 @@ export default function Dolls(props) {
                       displayEmpty
                       inputProps={{ "aria-label": "Without label" }}
                     >
-                      <MenuItem value="latest">
-                        <em>By Date</em> {/* Now sorts by `createdAt` */}
-                      </MenuItem>
-                      <MenuItem value="bestSeller">Best Seller</MenuItem>
-                      <MenuItem value="highest">Highest</MenuItem>
-                      <MenuItem value="lowest">Lowest</MenuItem>
+                    <MenuItem value="bestSeller">Best Seller</MenuItem>
+                    <MenuItem value="lowest">Low Price</MenuItem>
+                    <MenuItem value="highest">High Price</MenuItem>
+
+                    <MenuItem value="latest">
+                      <em>By Date</em>
+                    </MenuItem>
                     </Select>
                   </FormControl>
                 </div>
