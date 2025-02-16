@@ -58,9 +58,10 @@ export default function Dolls(props) {
     } catch (err) {
       console.error("Error fetching products:", err);
     } finally {
-      setLoading(false);
+      // Keep loading if no products are fetched
+      setLoading(products.length === 0);
     }
-  }, [sortProduct, isChecked, props.id]);
+  }, [sortProduct, isChecked, props.id, products.length]);
 
   // Fetch collections
   const fetchCollections = useCallback(async () => {
@@ -102,7 +103,7 @@ export default function Dolls(props) {
   return (
     <div>
       <Header />
-      {loading ? (
+      {loading || products.length === 0 ? (
         <div className="loading_div">
           <Loading />
         </div>
@@ -157,11 +158,9 @@ export default function Dolls(props) {
                     <MenuItem value="bestSeller">Best Seller</MenuItem>
                     <MenuItem value="lowest">Low Price</MenuItem>
                     <MenuItem value="highest">High Price</MenuItem>
-
                     <MenuItem value="latest">
                       <em>By Date</em>
                     </MenuItem>
-                    
                   </Select>
                 </FormControl>
               </div>

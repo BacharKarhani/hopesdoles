@@ -198,6 +198,8 @@ function App() {
         <Route path="/product/:id" element={<DollById />} />
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/dolls" element={<Dolls />} />
+        <Route path="/hoops" element={<Hoops />} />
         <Route path="*" element={<NotFound />} />
         {categories.map((each) => {
           return each.name === "dolls" ? (
