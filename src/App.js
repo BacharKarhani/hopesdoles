@@ -107,26 +107,6 @@ function App() {
 
   const StyleTag = () => <style>{modalAnimationStyle}</style>;
 
-  const gettest = async () => {
-    try {
-      const token = localStorage.getItem("token");  // Get token from localStorage (if it exists)
-      const response = await axios.get("https://lebacad.com/api.php", {
-        headers: {
-          "ngrok-skip-browser-warning": "asda",
-          Authorization: token ? `Bearer ${token}` : "",  // Only add Bearer token if available
-        },
-      });
-      setCategories(response.data);
-    } catch (err) {
-      console.log("Error fetching data:", err.response?.data || err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-  useEffect(() => {
-    gettest();
-  }, []);
   useEffect(() => {
     getCategories();
     checkUser();
