@@ -107,6 +107,21 @@ function App() {
 
   const StyleTag = () => <style>{modalAnimationStyle}</style>;
 
+  const gettest = async () => {
+    try {
+      let res = await axios.get("https://lebacad.com/api.php", {
+        headers: { "ngrok-skip-browser-warning": "asda" },
+      });
+      setCategories(res.data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    gettest();
+  }, []);
   useEffect(() => {
     getCategories();
     checkUser();
