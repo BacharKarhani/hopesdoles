@@ -39,6 +39,7 @@ const Address = ({ handleSubmit, handleChange, lb, data }) => {
   }, [data]);
 
   const isInLebanon = JSON.parse(localStorage.getItem("inLebanon"));
+  const cartTotal = cartItems.reduce((a, c) => a + c.price * c.quantity, 0);
 
   return (
     <>
@@ -54,7 +55,7 @@ const Address = ({ handleSubmit, handleChange, lb, data }) => {
             required
           />
         </div>
-        <div>
+        {/* <div>
           <input
             placeholder="Email"
             type="email"
@@ -63,7 +64,7 @@ const Address = ({ handleSubmit, handleChange, lb, data }) => {
             value={data.email}
             required
           />
-        </div>
+        </div> */}
         <div>
           <input
             placeholder="Phone"
@@ -105,7 +106,6 @@ const Address = ({ handleSubmit, handleChange, lb, data }) => {
           />
         </div>
         
-        {/* Conditionally render Zip field based on inLebanon flag */}
         {!isInLebanon && (
           <div>
             <input
@@ -131,12 +131,12 @@ const Address = ({ handleSubmit, handleChange, lb, data }) => {
         </div>
 
         <div>
-          {!lb ? (
-            <PaypalPayment
-              amount={cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
-            />
+          {isInLebanon ? (
+            <button type="submit" className="submit-btn">
+              Proceed to Checkout
+            </button>
           ) : (
-            <button type="submit">Proceed to Checkout</button>
+            <PaypalPayment amount={cartTotal} />
           )}
         </div>
       </form>

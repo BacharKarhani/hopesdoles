@@ -135,10 +135,7 @@ function Footer({ handlesChange, handlesSubmit, subscribe }) {
         <div className="copyright">
           {/* <p>Made with &hearts;</p> */}
           <p>
-            @Copyright Hopes {currentYear}-Created By{" "}
-            <a href="https://www.linkedin.com/in/omair-khoder">
-              <b>Omair</b>
-            </a>
+            @Copyright Hopes {currentYear}
           </p>
         </div>
       </footer>

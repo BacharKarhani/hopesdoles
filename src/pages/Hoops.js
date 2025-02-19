@@ -24,6 +24,8 @@ export default function Dolls(props) {
   const [inLebanon, setInLebanon] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const storedLocation = localStorage.getItem("inLebanon");
     if (storedLocation !== null) {
       setInLebanon(storedLocation === "true");

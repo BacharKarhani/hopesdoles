@@ -4,7 +4,6 @@ import "./checkout.css";
 import Header from "../../components/Header";
 import Address from "../../components/Address";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../../Store";
 import URLs from "../../config/urls";
@@ -13,6 +12,8 @@ const Checkout = () => {
   const [value, setValue] = useState("1");
   const [err, setError] = useState("");
   const [addr, setAddr] = useState(false);
+  const [orderTotal, setOrderTotal] = useState(0);
+
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -26,10 +27,11 @@ const Checkout = () => {
   const [country, setCountry] = useState("");
   const [lb, setLb] = useState(false);
   const [ids, setIds] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [countdown, setCountdown] = useState(10);
+
   const { state, dispatch } = useContext(Store);
-
   const Navigate = useNavigate();
-
   const { cart: { cartItems } } = state;
 
   useEffect(() => {
@@ -46,13 +48,8 @@ const Checkout = () => {
       .then((response) => {
         const userCountry = response.data.country_name;
         setCountry(userCountry);
-        if (userCountry === "Lebanon") {
-          localStorage.setItem("lbc", true);
-          setLb(true);
-        } else {
-          localStorage.setItem("lbc", false);
-          setLb(false);
-        }
+        localStorage.setItem("lbc", userCountry === "Lebanon");
+        setLb(userCountry === "Lebanon");
       })
       .catch((error) => {
         console.error("Error fetching user's country:", error);
@@ -77,11 +74,13 @@ const Checkout = () => {
     const isInLebanon = localStorage.getItem("inLebanon") === "true";
     const deliveryFee = isInLebanon ? 3 : 8;
     const finalTotalPrice = baseTotalPrice + deliveryFee;
-  
+
+    setOrderTotal(finalTotalPrice); // احفظ قيمة الطلب الإجمالية
+
     try {
       await axios.post(URLs.SUBMIT_ORDER(), {
         name: data.name,
-        email: data.email,
+        email: 0,
         phone: data.phone,
         address: {
           street: data.street,
@@ -93,18 +92,30 @@ const Checkout = () => {
         product_id: ids,
         payment_type: "cash on delivery",
         quantity: totalQuantity,
-        totalPrice: finalTotalPrice, // Including delivery fee
-        status_id : "67ae2d6c96e55b1038217622",
+        totalPrice: finalTotalPrice,
+        status_id: "67ae2d6c96e55b1038217622",
       });
-  
-      toast.success("Your order has been placed successfully!");
-      Navigate("/");
+
+      setShowPopup(true);
+      setCountdown(10);
+
+      // Start countdown timer
+      const timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev === 1) {
+            clearInterval(timer);
+            setShowPopup(false);
+            Navigate("/");
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      
     } catch (err) {
       console.error(err);
-      toast.error("Something went wrong, please try again or contact us.");
+      setError("Something went wrong, please try again or contact us.");
     }
   };
-  
 
   return (
     <>
@@ -117,18 +128,23 @@ const Checkout = () => {
             handleChange={handleInputChange}
             addr={addr}
             lb={lb}
-            data={data} 
+            data={data}
           />
-          <form onSubmit={handleSubmit}>
-            <button
-              type="submit"
-              className="submit-btn"
-            >
-              Submit Order
-            </button>
-          </form>
         </Box>
       </div>
+
+      {/* Popup Confirmation */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h2>Order Submitted!</h2><br/>
+            <p>Your order has been successfully placed.</p><br/>
+            <p>Total Amount:<strong>${orderTotal}</strong> </p><br/>
+            <p>Closing in <strong>{countdown}</strong> seconds...</p><br/>
+            <button className="close-btn" onClick={() => setShowPopup(false)}>Close Now</button><br/>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -82,7 +82,7 @@ function ViewOrder() {
         <>
           <div className="client-order-details">
             <p className="data">Client Name: {order.user_info?.name}</p>
-            <p className="data">Client Email: {order.user_info?.email}</p>
+            {/* <p className="data">Client Email: {order.user_info?.email}</p> */}
             <p className="data">Client Number: {order.user_info?.phone}</p>
             <p className="data">Client Address: {order.user_info?.address?.street}, {order.user_info?.address?.city}, {order.user_info?.address?.state}, {order.user_info?.address?.zip}, {order.user_info?.address?.country}</p>
             <p className="data">Payment Type: {order.payment_type}</p>

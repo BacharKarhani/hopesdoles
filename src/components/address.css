@@ -29,7 +29,7 @@
 }
 
 .checkout-form > div > button {
-  width: 80%;
+  /* width: 80%;
   outline: none;
   padding: 12px;
   background: linear-gradient(to left, #000, #e97436);
@@ -37,13 +37,25 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); */
+  display: block;
+  margin: 20px auto; /* Auto margins center it inside the form */
+  background-color: #faaf3e;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 60%; /* Button width */
+  max-width: 300px;
+  text-align: center; /* Center text inside button */
 }
 
 .checkout-form > div > button:hover {
-  transition: all 5s ease;
-  background: linear-gradient(to right, #000, #e97436);
-  box-shadow: none;
+  background-color: white;
+  color: #faaf3e;
+  border: 1px #faaf3e solid;
 }
 
 /* Responsive adjustments for mobile screens */

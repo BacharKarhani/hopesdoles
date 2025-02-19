@@ -52,15 +52,15 @@ const Accepted = () => {
         return params.row.user_info ? params.row.user_info.name : "-";
       },
     },
-    {
-      field: "user_info.email",
-      headerName: "Email",
-      width: 200,
-      editable: false,
-      renderCell: (params) => {
-        return params.row.user_info ? params.row.user_info.email : "-";
-      },
-    },
+    // {
+    //   field: "user_info.email",
+    //   headerName: "Email",
+    //   width: 200,
+    //   editable: false,
+    //   renderCell: (params) => {
+    //     return params.row.user_info ? params.row.user_info.email : "-";
+    //   },
+    // },
     {
       field: "user_info.phone", // assuming phone is available in user_info
       headerName: "Phone Number",

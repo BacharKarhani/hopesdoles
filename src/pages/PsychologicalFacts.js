@@ -17,6 +17,8 @@ export default function PsychologicalFacts() {
   let { name } = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const fetchData = async () => {
       try {
         const [videoRes, lastVideoRes] = await Promise.all([

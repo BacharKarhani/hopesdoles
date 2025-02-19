@@ -15,6 +15,8 @@ export default function FillDolls() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     getvideo();
     getlastvideo();
   }, []);
