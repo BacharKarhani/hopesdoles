@@ -59,7 +59,7 @@ function Video() {
 
   return (
     <div className="video_table">
-      <Link to={URLs.ADD_VIDEO}>
+        <Link to="/dashboard/addvideo">
         <button className="add-video-btn">Add Video</button>
       </Link>
       <table className="styled-table-coll">
