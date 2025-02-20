@@ -40,7 +40,7 @@ const URLs = {
   DELETE_PRODUCT: (id) => `${BASE_URL}/products/${id}`,
 
   
-  ADD_VIDEO: `${BASE_URL}/api/video`,
+  ADD_VIDEO: `${BASE_URL}/video`,
   GET_VIDEO_BY_ID: (id) => `${BASE_URL}/video/by/${id}`,
   UPDATE_VIDEO: (id) => `${BASE_URL}/video/${id}`,
   GET_ALL_VIDEOS: `${BASE_URL}/video`,
