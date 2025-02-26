@@ -80,26 +80,7 @@ export default function FillDolls() {
             })}
           </div>
 
-          <div className="FillDolls_all_whole">
-            <div className="FillDolls_all">
-              {video &&
-                video.map((e, index) => {
-                  return (
-                    <div key={index}>
-                      <iframe
-                        width="430"
-                        height="207"
-                        src={e.path}
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
+          
           <div className="FillDolls_pagination">
             <Pagination />
           </div>
