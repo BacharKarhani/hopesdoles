@@ -125,7 +125,7 @@ function Home() {
             </Link>
           </div>
           <div className="discover_images_data">
-            <Link className="links" to="/filldoll/FillDolls">
+            <Link className="links" to="/dolls">
               <img className="clothes_image" src={Clothes} alt="Doll-Logo" />
               <p>Clothes</p>
             </Link>
